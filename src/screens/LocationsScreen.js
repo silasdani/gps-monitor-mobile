@@ -1,18 +1,22 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
 
-export default function LocationsScreen() {
-    return (
-        <View style={styles.screen}>
-            <Text>Locations</Text>
+export class LocationsScreen extends Component {
+    render() {
+        return (
+            <View>
+            <Text>LocationsScreen</Text>
         </View>
-    )
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-})
+
+// const styles = StyleSheet.create({
+//     screen: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     }
+// })
+export default LocationsScreen

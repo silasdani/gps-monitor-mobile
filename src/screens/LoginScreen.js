@@ -1,18 +1,23 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react'
+import { Button, StyleSheet, Text, View } from 'react-native'
 
-export default function LoginScreen() {
-    return (
-        <View style={styles.screen}>
-            <Text></Text>
-        </View>
-    )
+export class LoginScreen extends Component {
+    render() {
+        return (
+            <View>
+                <Text>LoginScreen</Text>
+                <Button title="Submit" onPress={() => { this.props.navigation.navigate('Dashboard') }} />
+            </View>
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-})
+export default LoginScreen
+
+// const styles = StyleSheet.create({
+//     screen: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     }
+// })

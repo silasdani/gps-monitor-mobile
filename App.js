@@ -4,12 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
 import * as Font from 'expo-font';
-import LocationNavigator from './src/navigation/LocationsNavigation';
+import AppNavigator from './src/navigation/Navigation';
 
 export const App = (props) => {
   return (
     <Provider store={store}>
-      <LocationNavigator />
+      <AppNavigator />
       {/* <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
