@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Text, View } from 'react-native'
 import * as Location from 'expo-location';
+import { connect } from "react-redux";
+
 
 export class DashboardScreen extends Component {
     state = {
@@ -33,7 +35,12 @@ export class DashboardScreen extends Component {
     }
 }
 
-export default DashboardScreen
+const mapStateToProps = (state) => {
+    console.warn(state)
+    return {}
+}
+
+export default connect(mapStateToProps)(DashboardScreen)
 
 const styles = {
     screen: {
