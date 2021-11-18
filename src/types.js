@@ -1,0 +1,10 @@
+export const USER_LOGGED_IN = "USER_LOGGED_IN";
+export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+export const USER_DELETED = "USER_DELETED";
+export const USER_EDITED = "USER_EDITED";
+export const USER_ADDED = "USER_ADDED";
+export const USERS_FETCHED = "USERS_FETCHED";
+export const TRACKS_FETCHED = "TRACKS_FETCHED";
+export const TRACK_CREATED = "TRACK_CREATED";
+export const TRACK_EDITED = "TRACK_EDITED";
+export const TRACK_DELETED = "TRACK_DELETED";
