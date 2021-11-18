@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 
 export class LoginScreen extends Component {
+    state = {
+        email: '',
+        password: '',
+        remember_me: false,
+    }
+
     render() {
+        
         return (
-            <View>
+            <View style={styles.screen}>
                 <Text>LoginScreen</Text>
                 <Button title="Submit" onPress={() => { this.props.navigation.navigate('Dashboard') }} />
             </View>
@@ -14,10 +21,10 @@ export class LoginScreen extends Component {
 
 export default LoginScreen
 
-// const styles = StyleSheet.create({
-//     screen: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//     }
-// })
+const styles = {
+    screen: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+}

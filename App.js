@@ -1,31 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
-import * as Font from 'expo-font';
-import AppNavigator from './src/navigation/Navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { StackNavigation } from './src/routes/Navigation';
+import { Location, Permissions } from 'expo'
 
-export const App = (props) => {
+export default function App() {
   return (
     <Provider store={store}>
-      <AppNavigator />
-      {/* <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View> */}
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
     </Provider>
   );
 }
-
-export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
