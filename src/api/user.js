@@ -1,16 +1,22 @@
 import axios from "axios";
+import setHeader from "../utils/setAuthorizationHeader";
 
 export default {
     // Account actions
     user: {
         login: (credentials) =>
             axios
-                .post("/login", { email: credentials.email, password: credentials.password })
-                .then((res) => res.data.data.attributes),
+                .post("http://localhost:3000/login", credentials)
+                .then((res) => {
+                    setHeader(res.data.data.attributes.remember_digest)
+                    return res.data.data.attributes
+                }),
 
         logout: () =>
             axios
-                .delete("/logout"),
+                .delete("/logout").then(() => {
+                    setHeader()
+                }),
 
         signup: (user) =>
             axios

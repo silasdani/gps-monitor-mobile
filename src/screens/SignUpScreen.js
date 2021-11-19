@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button, Alert } from 'react-native'
-import { FaBeer } from 'react-icons/fa';
 
 export class SignUpScreen extends Component {
 
@@ -23,7 +22,7 @@ export class SignUpScreen extends Component {
 
     }
 
-    onLogin = () => {
+    onSignUp = () => {
         const { username, password } = this.state;
 
         Alert.alert('Credentials', `${username} + ${password}`);
@@ -32,13 +31,21 @@ export class SignUpScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.inputext}>Sample Login Form</Text>
+                <Text>Name</Text>
                 <TextInput
                     value={this.state.username}
                     onChangeText={(username) => this.setState({ username })}
                     label='Email'
                     style={styles.input}
                 />
+                <Text>Email</Text>
+                <TextInput
+                    value={this.state.username}
+                    onChangeText={(username) => this.setState({ username })}
+                    label='Email'
+                    style={styles.input}
+                />
+                <Text>Password</Text>
                 <TextInput
                     value={this.state.password}
                     onChangeText={(password) => this.setState({ password })}
@@ -46,11 +53,18 @@ export class SignUpScreen extends Component {
                     secureTextEntry={true}
                     style={styles.input}
                 />
-
-                <Button
-                    title={'Login'}
+                <Text>Password Confirm</Text>
+                <TextInput
+                    value={this.state.password}
+                    onChangeText={(password) => this.setState({ password })}
+                    label='Password'
+                    secureTextEntry={true}
                     style={styles.input}
-                    onPress={this.onLogin}
+                />
+                <Button
+                    title={'Sign Up'}
+                    style={styles.input}
+                    onPress={this.onSignUp}
                 />
             </View>
         );
@@ -71,7 +85,7 @@ const styles = {
         height: 44,
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'grey',
         marginBottom: 10,
     },
     inputext: {

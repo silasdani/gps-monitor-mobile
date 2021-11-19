@@ -7,6 +7,7 @@ import {
 } from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { connect } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -65,3 +66,5 @@ export const StackNavigation = () => {
         </Stack.Navigator>
     );
 }
+
+export default connect()(StackNavigation);

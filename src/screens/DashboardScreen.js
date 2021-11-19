@@ -7,29 +7,32 @@ import { connect } from "react-redux";
 export class DashboardScreen extends Component {
     state = {
         errorMessage: '',
-        location: {}
+        location: {},
+        hasLocation: false,
     }
 
     _getLocation = async () => {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
             let errorMessage = "Not Granted!";
-            this.setState({ errorMessage })
+            this.setState({ ...this.state, errorMessage })
             return;
         }
         const location = await Location.getCurrentPositionAsync();
-        this.setState({ location })
+        this.setState({ location, hasLocation: true })
     }
 
     componentWillMount() {
         this._getLocation();
     }
-
+    
     render() {
         return (
             <View style={styles.screen}>
-                <Text>Add my new Locatons</Text>
-                <Button title="Push Location" onPress={() => { this.props.navigation.navigate('Locations', this.state) }} />
+                <Text>Add my new Locaton</Text>
+                {!this.state.hasLocation && <Text>Locating... Please Wait!</Text>}
+                {!!this.state.errorMessage && <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>}
+                <Button title="Push Location" disabled={!this.state.hasLocation} onPress={() => { this.props.navigation.navigate('Locations', this.state) }} />
             </View>
         )
     }
@@ -47,5 +50,8 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    errorMessage: {
+        color: 'red',
+    },
 };
