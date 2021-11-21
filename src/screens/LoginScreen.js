@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Text, TextInput, View, Dimensions } from 'react-native'
-import user from '../api/user'
+import api from '../api/user'
 
 export class LoginScreen extends Component {
     state = {
@@ -25,10 +25,9 @@ export class LoginScreen extends Component {
     }
 
     onLogin = () => {
-        console.warn(this.state.credentials)
-        user.user.login(this.state.credentials).then((user) => {
+        api.user.login(this.state.credentials).then((user) => {
             this.props.navigation.navigate('Dashboard', user);
-        }).catch(res => console.warn(res))
+        }).catch(res => res)
     }
 
     render() {

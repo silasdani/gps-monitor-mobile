@@ -22,6 +22,12 @@ export class LocationsScreen extends Component {
 
     componentDidMount() {
         this.addNewMarker(this.props.route.params?.location?.coords)
+        this.props.route.params?.locations?.map(location => {
+            this.addNewMarker({
+                latitude: Number(location?.attributes?.latitude),
+                longitude: Number(location?.attributes?.longitude),
+            })
+        })
     }
     render() {
         const { latitude } = this.props.route.params?.location?.coords || 47.221;
@@ -40,11 +46,11 @@ export class LocationsScreen extends Component {
                         longitudeDelta: 0.0421,
                     }}
                 >
-                    {this.state.markers.map((marker, index) => (
+                    {this.state.markers?.map((marker, index) => (
                         <Marker
                             key={index}
                             coordinate={marker.latlng}
-                            title={marker.title}
+                            title={marker.title.toString()}
                         />
                     ))}
                 </MapView>
