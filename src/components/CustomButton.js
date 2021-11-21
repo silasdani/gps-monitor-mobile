@@ -5,8 +5,8 @@ import {
     StyleSheet,
     Dimensions,
 } from 'react-native';
-import Colors from 'utils/Colors';
-import Fonts from 'utils/Fonts';
+import Colors from '../utils/Colors';
+import Fonts from '../utils/Fonts';
 
 const CustomButton = (props) => {
     const textStyles = [styles.text, props.textStyle];

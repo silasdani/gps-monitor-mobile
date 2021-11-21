@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
-
-import checkPasswords from 'utils/CheckPasswordService';
-import Colors from 'services/Colors';
-import Constants from 'utils/Constants';
-import Fonts from 'utils/Fonts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import FormTextInput from 'components/FormTextInput';
-import CustomButton from 'components/CustomButton';
+import checkPasswords from '../utils/CheckPasswordsService';
+import Colors from '../utils/Colors';
+import Constants from '../utils/Constants';
+import Fonts from '../utils/Fonts';
+
+import FormTextInput from '../components/FormTextInput';
+import CustomButton from '../components/CustomButton';
 
 const Spacer = (props) => {
     const style = { height: props.height, width: props.width };
     return <View style={style} />;
 };
 
-export class SignUpScene extends Component {
+export class SignUpScreen extends Component {
     state = {
         name: '',
         email: '',
@@ -120,7 +119,7 @@ export class SignUpScene extends Component {
 
     render() {
         const errorState = this.state.errors || {};
-
+        // TODO: Handle Synthetic element for all fields
         return (
             <KeyboardAwareScrollView
                 extraHeight={120}
@@ -143,16 +142,16 @@ export class SignUpScene extends Component {
 
                 <FormTextInput
                     labelText="Email Address"
-                    hasError={errorState.errors.emailError}
+                    hasError={errorState.errors?.emailError}
                     keyboardType="email-address"
                     onChange={this.onEmailChange}
                     value={this.state.email}
                     required={true}
                 />
 
-                {!!errorState.errors.errorMessage && (
+                {!!errorState.errors?.errorMessage && (
                     <View style={styles.errorContainer}>
-                        <Text style={styles.error}>{errorState.errors.errorMessage}</Text>
+                        <Text style={styles.error}>{errorState.errors?.errorMessage}</Text>
                     </View>
                 )}
 
@@ -162,7 +161,7 @@ export class SignUpScene extends Component {
                     labelText="Password"
                     secureTextEntry={true}
                     placeholder="(must be at least 6 characters)"
-                    hasError={errorState.errors.passwordError}
+                    hasError={errorState.errors?.passwordError}
                     onChange={this.onPasswordChange}
                     value={this.state.password}
                     required={true}
@@ -173,7 +172,7 @@ export class SignUpScene extends Component {
                 <FormTextInput
                     labelText="Confirm Password"
                     secureTextEntry={true}
-                    hasError={errorState.errors.passwordError}
+                    hasError={errorState.errors?.passwordError}
                     onChange={this.onPasswordConfirmChange}
                     value={this.state.passwordConfirm}
                     required={true}
@@ -194,7 +193,7 @@ export class SignUpScene extends Component {
     }
 }
 
-export default SignUpScene;
+export default SignUpScreen;
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

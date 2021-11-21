@@ -5,8 +5,8 @@ import {
     TextInput,
     StyleSheet,
 } from 'react-native';
-import Colors from 'utils/Colors';
-import Fonts from 'utils/Fonts';
+import Colors from '../utils/Colors'
+import Fonts from '../utils/Fonts';
 
 class FormTextInput extends Component {
     render() {
