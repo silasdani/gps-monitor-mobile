@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Button, Text, ScrollView, View } from 'react-native'
 import * as Location from 'expo-location';
 import { connect } from "react-redux";
-import api from '../api/user'
-import LocationSerializer from '../utils/LocationSerializer'
+import api from '../api/user';
+import LocationSerializer from '../utils/LocationSerializer';
 
 
 export class DashboardScreen extends Component {
@@ -38,10 +38,17 @@ export class DashboardScreen extends Component {
         }).catch(res => res)
     }
 
+    onRefreshLocations = () => {
+        api.locations.fetchMyLocations().then(data => {
+            this.setState({ ...this.state, locations: data })
+        })
+    }
+
     render() {
-        const locations = this.props.route.params?.included;
+        const { locations } = this.state;
         return (
             <View style={styles.screen}>
+                <Button title="REFRESH" onPress={this.onRefreshLocations} />
                 <ScrollView style={{ height: 400 }}>
                     {locations?.map(location => {
                         return (<Text>{location?.attributes?.location_title}</Text>)

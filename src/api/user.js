@@ -9,79 +9,87 @@ export default {
     user: {
         addLocation: (location) =>
             axios
-                .post(ENV + "/location", location)
-                .then((answer) => answer),
+            .post(ENV + "/location", location)
+            .then((answer) => answer),
 
         login: (credentials) =>
             axios
-                .post(ENV + "/login", credentials)
-                .then((res) => {
-                    setHeader(res.data.data.attributes.remember_digest)
-                    return res.data;
-                })
-                .catch((r) => r),
+            .post(ENV + "/login", credentials)
+            .then((res) => {
+                setHeader(res.data.data.attributes.remember_digest)
+                return res.data;
+            })
+            .catch((r) => r),
 
         logout: () =>
             axios
-                .delete(ENV + "/logout").then(() => {
-                    setHeader()
-                }),
+            .delete(ENV + "/logout").then(() => {
+                setHeader()
+            }),
 
         signup: (user) =>
             axios
-                .post(ENV + "/users", { user })
-                .then((res) => res.data.data.attributes),
+            .post(ENV + "/users", { user })
+            .then((res) => res.data.data.attributes),
 
         confirm: (token) =>
             axios
-                .get(ENV + "/account_activations/" + token)
-                .then((res) => res.data.data.attributes),
+            .get(ENV + "/account_activations/" + token)
+            .then((res) => res.data.data.attributes),
 
         resetPasswordRequest: (email) =>
             axios
-                .post(ENV + "/password_resets", { email })
-                .then((res) => res),
+            .post(ENV + "/password_resets", { email })
+            .then((res) => res),
 
         validateToken: (token) =>
             axios
-                .post(ENV + "/validate_token", { token }),
+            .post(ENV + "/validate_token", { token }),
 
         resetPassword: (data) =>
             axios
-                .post(ENV + "/password_resets", { data })
-                .then((res) => res),
+            .post(ENV + "/password_resets", { data })
+            .then((res) => res),
+    },
+
+    // Locations CRUD
+    locations: {
+        fetchMyLocations: () =>
+            axios
+            .get(ENV + "/locations/")
+            .then((res) => res.data.data),
     },
 
     // Tracks CRUD
     tracks: {
         fetchMyTracks: () =>
             axios
-                .get(ENV + "/tracks/my")
-                .then((res) => res.data.data),
+            .get(ENV + "/tracks/my")
+            .then((res) => res.data.data),
 
         create: (track) =>
             axios
-                .post(ENV + "/tracks", { track })
-                .then((res) => res.data),
+            .post(ENV + "/tracks", { track })
+            .then((res) => res.data),
 
         update: (track, id) =>
             axios
-                .patch(ENV + "/tracks/" + id, { track })
-                .then((res) => res.data),
+            .patch(ENV + "/tracks/" + id, { track })
+            .then((res) => res.data),
 
         weekly_report: () =>
             axios
-                .get(ENV + "/tracks/weekly_report")
-                .then((res) => res.data),
+            .get(ENV + "/tracks/weekly_report")
+            .then((res) => res.data),
 
         getData: (id) =>
             axios
-                .get(ENV + "/tracks/" + id)
-                .then((res) => res.data.data.attributes),
+            .get(ENV + "/tracks/" + id)
+            .then((res) => res.data.data.attributes),
 
         delete: (id) =>
             axios
-                .delete(ENV + "/tracks/" + id)
-                .then(() => "Success"),
+            .delete(ENV + "/tracks/" + id)
+            .then(() => "Success"),
     }
 }
