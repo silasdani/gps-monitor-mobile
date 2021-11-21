@@ -9,11 +9,7 @@ import Fonts from '../utils/Fonts';
 
 import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
-
-const Spacer = (props) => {
-    const style = { height: props.height, width: props.width };
-    return <View style={style} />;
-};
+import Spacer from '../components/Spacer';
 
 export class SignUpScreen extends Component {
     state = {
@@ -54,27 +50,26 @@ export class SignUpScreen extends Component {
         });
     }
 
-    handleClick = () => {
+    onSignUp = () => {
         this.clearSignUpError();
 
         const emailInput = this.state.email;
         const emailRegex = /^.+@.+\..+$/;
 
         if (!emailRegex.test(emailInput)) {
+            const { errors } = this.state;
+            errors.emailError = true;
+            errors.errorMessage = 'Must enter a valid email address';
             this.setState({
                 ...this.state,
-                errors: {
-                    ...this.state.errors,
-                    emailError: true,
-                    errorMessage: 'Must enter a valid email address',
-                },
+                errors
             });
             return;
         }
 
         const signUp = this.state;
         const error = checkPasswords(signUp.password, signUp.passwordConfirm);
-        if (error) {
+        if (!!error) {
             this.setState({
                 ...this.state,
                 errors: {
@@ -118,8 +113,8 @@ export class SignUpScreen extends Component {
     }
 
     render() {
-        const errorState = this.state.errors || {};
-        // TODO: Handle Synthetic element for all fields
+        const { errors } = this.state;
+
         return (
             <KeyboardAwareScrollView
                 extraHeight={120}
@@ -132,6 +127,7 @@ export class SignUpScreen extends Component {
                 <Spacer height={26} />
 
                 <FormTextInput
+                    name="name"
                     labelText="Name"
                     onChange={this.onNameChange}
                     value={this.state.name}
@@ -141,27 +137,23 @@ export class SignUpScreen extends Component {
                 <Spacer height={8} />
 
                 <FormTextInput
+                    name="email"
                     labelText="Email Address"
-                    hasError={errorState.errors?.emailError}
+                    hasError={errors.emailError}
                     keyboardType="email-address"
                     onChange={this.onEmailChange}
                     value={this.state.email}
                     required={true}
                 />
 
-                {!!errorState.errors?.errorMessage && (
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.error}>{errorState.errors?.errorMessage}</Text>
-                    </View>
-                )}
-
                 <Spacer height={8} />
 
                 <FormTextInput
+                    name="password"
                     labelText="Password"
                     secureTextEntry={true}
                     placeholder="(must be at least 6 characters)"
-                    hasError={errorState.errors?.passwordError}
+                    hasError={errors?.passwordError}
                     onChange={this.onPasswordChange}
                     value={this.state.password}
                     required={true}
@@ -170,19 +162,26 @@ export class SignUpScreen extends Component {
                 <Spacer height={8} />
 
                 <FormTextInput
+                    name="passwordConfirm"
                     labelText="Confirm Password"
                     secureTextEntry={true}
-                    hasError={errorState.errors?.passwordError}
+                    hasError={errors?.passwordError}
                     onChange={this.onPasswordConfirmChange}
                     value={this.state.passwordConfirm}
                     required={true}
                 />
 
+                {!!errors?.errorMessage && (
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>{errors?.errorMessage}</Text>
+                    </View>
+                )}
+
                 <Spacer height={16} />
 
                 <CustomButton
                     disabled={this.hasMissingFields()}
-                    onPress={this.handleClick}
+                    onPress={this.onSignUp}
                 >
                     SIGN UP
                 </CustomButton>
@@ -204,21 +203,6 @@ const styles = StyleSheet.create({
         paddingRight: Constants.sideMargin,
         backgroundColor: Colors.sceneBackgroundColor,
         height: height,
-    },
-    agreement: {
-        color: Colors.formAgreementTextColor,
-        fontFamily: Fonts.bodyText,
-    },
-    emphasis: {
-        fontFamily: Fonts.bodyText,
-        color: Colors.linkColor,
-    },
-    footerText: {
-        paddingBottom: 22,
-        color: Colors.formFooterTextColor,
-        fontFamily: Fonts.bodyText,
-        textAlign: 'center',
-        fontWeight: '600',
     },
     errorContainer: {
         height: 26,

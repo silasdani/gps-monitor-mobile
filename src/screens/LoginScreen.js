@@ -1,116 +1,148 @@
 import React, { Component } from 'react'
-import { Button, Text, TextInput, View, Dimensions } from 'react-native'
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import Colors from '../utils/Colors';
+import Constants from '../utils/Constants';
+import Fonts from '../utils/Fonts';
+
+import FormTextInput from '../components/FormTextInput';
+import CustomButton from '../components/CustomButton';
+import Spacer from '../components/Spacer';
+
 import api from '../api/user'
 
 export class LoginScreen extends Component {
     state = {
-        credentials: {
-            email: '',
-            password: ''
-        },
-        remember_me: false,
-        errorMessage: {
-            globalError: '',
-            password: '',
-            email: '',
-        },
+        email: '',
+        password: '',
+        errorMessage: '',
     }
 
-    onEmailChange = (e) => {
-        this.setState({
-            credentials: { ...this.state.credentials, email: e },
-        });
-    }
+    hasMissingFields = () => {
+        const requiredFields = ["email", "password"]
+        for (let field of requiredFields || []) {
+            if (!this.state[field] || this.state[field]?.length === 0 || this.state[field]?.toString().trim() === '') {
+                if (this.state[field] !== 0) {
+                    return true;
+                }
+            }
+        }
 
-    onPasswordChange = (e) => {
+        return false;
+    };
+
+    clearLoginError = () => {
         this.setState({
-            credentials: { ...this.state.credentials, password: e },
+            ...this.state,
+            errorMessage: '',
         });
     }
 
     onLogin = () => {
-        api.user.login(this.state.credentials).then((answer) => {
-            if (!!answer.data?.id) this.props.navigation.push('Dashboard', answer);
-            else {
-                console.warn(answer)
-                this.setState({ ...this.state, errorMessage: {...this.state.errorMessage, globalError: "Invalid email or password!"} })
-            }
-        }).catch(res => res)
+        const { email, password } = this.state;
+
+        api.user.login({ email: email, password: password })
+            .then((user) => {
+                if (!!user.data?.id) this.props.navigation.push('Dashboard', user);
+                else {
+                    this.setState({
+                        ...this.state,
+                        errorMessage: "Invalid email or password!"
+                    })
+                }
+            });
+    }
+
+    onEmailChange = (value) => {
+        this.setState({
+            ...this.state,
+            email: value
+        });
+    }
+
+    onPasswordChange = (value) => {
+        this.setState({
+            ...this.state,
+            password: value
+        });
     }
 
     render() {
+        const { errorMessage } = this.state;
 
         return (
-            <View style={styles.screen}>
-                <View>
-                    {!!this.state.errorMessage.globalError && <Text style={styles.errorMessage}>{this.state.errorMessage.globalError}</Text>}
-                </View>
-                <Text>Email</Text>
-                <TextInput
-                    value={this.state.username}
-                    onChangeText={this.onEmailChange}
-                    label='Email'
-                    style={styles.input}
-                />
-                <View>
-                    {!!this.state.errorMessage.email && <Text style={styles.errorMessage}>{this.state.errorMessage.email}</Text>}
-                </View>
-                <Text>Password</Text>
-                <TextInput
-                    value={this.state.password}
-                    onChangeText={this.onPasswordChange}
-                    label='Password'
-                    secureTextEntry={true}
-                    style={styles.input}
-                />
-                <View>
-                    {!!this.state.errorMessage.password && <Text style={styles.errorMessage}>{this.state.errorMessage.password}</Text>}
-                </View>
+            <KeyboardAwareScrollView
+                extraHeight={120}
+                enableOnAndroid
+                style={styles.container}
+                bounces={false}
+                enableResetScrollToCoords={false}
+                keyboardOpeningTime={1}
+            >
+                <Spacer height={26} />
 
-                <Button
-                    title={'Login'}
-                    style={styles.input}
-                    onPress={this.onLogin}
+                <FormTextInput
+                    name="email"
+                    labelText="Email"
+                    hasError={!!errorMessage}
+                    keyboardType="email-address"
+                    onChange={this.onEmailChange}
+                    value={this.state.email}
                 />
-            </View>
+
+                <Spacer height={8} />
+
+                <FormTextInput
+                    name="password"
+                    labelText="Password"
+                    secureTextEntry={true}
+                    hasError={!!errorMessage}
+                    onChange={this.onPasswordChange}
+                    value={this.state.password}
+                />
+                {!!errorMessage && (
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>{errorMessage}</Text>
+                    </View>
+                )}
+
+                <Spacer height={16} />
+
+                <CustomButton
+                    disabled={this.hasMissingFields()}
+                    onPress={this.onLogin}
+                >
+                    LOG IN
+                </CustomButton>
+
+                <Spacer height={35} />
+            </KeyboardAwareScrollView>
         )
     }
 }
 
 export default LoginScreen
 
-const { width, height } = Dimensions.get('window');
+// Calculate width of half width boxes that take into account margins and spacing.
+const { height } = Dimensions.get('window');
 
-const styles = {
-    screen: {
-        flex: 1,
-        alignItems: 'center',
+const styles = StyleSheet.create({
+    container: {
+        paddingLeft: Constants.sideMargin,
+        paddingRight: Constants.sideMargin,
+        backgroundColor: Colors.sceneBackgroundColor,
+        height: height,
+    },
+    errorContainer: {
+        height: 26,
+        width: '100%',
+        alignItems: 'flex-end',
         justifyContent: 'center',
-        backgroundColor: '#FFFF',
     },
-    input: {
-        width: 200,
-        height: 44,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'grey',
-        marginBottom: 10,
+    error: {
+        color: Colors.error,
+        fontWeight: '600',
+        fontFamily: Fonts.bodyText,
     },
-    inputext: {
-        width: 200,
-        height: 44,
-        padding: 10,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        borderWidth: 1,
-        borderColor: 'black',
-        marginBottom: 10,
-    },
-    errorMessage: {
-        color: 'red',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        marginBottom: 10,
-        width: width - 30,
-    },
-}
+});

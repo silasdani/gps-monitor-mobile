@@ -1,13 +1,13 @@
 const Fonts = {
-    bodyText: 'Lato',
-    sceneTitle: 'Evogria',
-    tabLabel: 'Evogria',
-    buttonText: 'Evogria',
-    headingText: 'Lato',
-    redBadge: 'Lato',
+    bodyText: 'Times New Roman',
+    sceneTitle: 'Arial',
+    tabLabel: 'Arial',
+    buttonText: 'Arial',
+    headingText: 'Times New Roman',
+    redBadge: 'Times New Roman',
   
     // Animated form fields
-    textInput: 'Lato',
+    textInput: 'Times New Roman',
   
     // Kerning
     // not yet supported on Android

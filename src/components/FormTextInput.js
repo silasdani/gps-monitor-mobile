@@ -29,8 +29,8 @@ class FormTextInput extends Component {
                 {!disabled &&
                     <View style={[styles.innerContainer, hasError && styles.containerError]} >
                         <TextInput
-                            onChange={onChange}
                             {...this.props}
+                            onChangeText={onChange}
                             style={[styles.textInput, hasError && styles.error]}
                             autoCapitalize={capitalize || 'none'}
                             autoCorrect={false}

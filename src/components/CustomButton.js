@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.buttonText,
         fontSize: 20,
         fontStyle: 'italic',
+        fontWeight: '700',
         color: Colors.white,
         letterSpacing: Fonts.buttonLetterSpacing,
         paddingHorizontal: 3,
