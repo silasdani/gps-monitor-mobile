@@ -9,7 +9,11 @@ export class LoginScreen extends Component {
             password: ''
         },
         remember_me: false,
-        erroeMessage: '',
+        errorMessage: {
+            globalError: '',
+            password: '',
+            email: '',
+        },
     }
 
     onEmailChange = (e) => {
@@ -25,8 +29,12 @@ export class LoginScreen extends Component {
     }
 
     onLogin = () => {
-        api.user.login(this.state.credentials).then((user) => {
-            this.props.navigation.navigate('Dashboard', user);
+        api.user.login(this.state.credentials).then((answer) => {
+            if (!!answer.data?.id) this.props.navigation.push('Dashboard', answer);
+            else {
+                console.warn(answer)
+                this.setState({ ...this.state, errorMessage: {...this.state.errorMessage, globalError: "Invalid email or password!"} })
+            }
         }).catch(res => res)
     }
 
@@ -34,6 +42,9 @@ export class LoginScreen extends Component {
 
         return (
             <View style={styles.screen}>
+                <View>
+                    {!!this.state.errorMessage.globalError && <Text style={styles.errorMessage}>{this.state.errorMessage.globalError}</Text>}
+                </View>
                 <Text>Email</Text>
                 <TextInput
                     value={this.state.username}
@@ -41,6 +52,9 @@ export class LoginScreen extends Component {
                     label='Email'
                     style={styles.input}
                 />
+                <View>
+                    {!!this.state.errorMessage.email && <Text style={styles.errorMessage}>{this.state.errorMessage.email}</Text>}
+                </View>
                 <Text>Password</Text>
                 <TextInput
                     value={this.state.password}
@@ -49,6 +63,9 @@ export class LoginScreen extends Component {
                     secureTextEntry={true}
                     style={styles.input}
                 />
+                <View>
+                    {!!this.state.errorMessage.password && <Text style={styles.errorMessage}>{this.state.errorMessage.password}</Text>}
+                </View>
 
                 <Button
                     title={'Login'}
@@ -88,5 +105,12 @@ const styles = {
         borderWidth: 1,
         borderColor: 'black',
         marginBottom: 10,
+    },
+    errorMessage: {
+        color: 'red',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        width: width - 30,
     },
 }
