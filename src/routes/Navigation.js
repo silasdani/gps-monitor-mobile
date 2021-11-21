@@ -1,25 +1,20 @@
 import React from 'react';
-import {
-    LocationsScreen,
-    DashboardScreen,
-    SignUpScreen,
-    LoginScreen
-} from '../screens';
+import { LocationsScreen, DashboardScreen, SignUpScreen, LoginScreen } from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
+import Colors from '../utils/Colors';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const defaultOptions = {
     headerStyle: {
-        backgroundColor: '#FAEBD7',
+        backgroundColor: Colors.blueSteel,
     },
-    // headerTintColor: '#fff',
     headerTitleStyle: {
         fontWeight: 'bold',
-        color: '#000000'
+        color: '#FFFFFF'
     },
 }
 
@@ -29,14 +24,18 @@ export const Home = () => {
             <Drawer.Screen
                 name="Login"
                 component={LoginScreen}
-                options={defaultOptions}
-
+                options={{
+                    title: 'LOGIN',
+                    ...defaultOptions
+                }}
             />
             <Drawer.Screen
                 name="SignUp"
                 component={SignUpScreen}
-                options={defaultOptions}
-
+                options={{
+                    title: 'SIGN UP',
+                    ...defaultOptions
+                }}
             />
         </Drawer.Navigator>
     )
@@ -54,14 +53,17 @@ export const StackNavigation = () => {
                 name="Dashboard"
                 component={DashboardScreen}
                 options={{
-                    title: 'Home',
+                    title: 'MY LOCATIONS',
                     ...defaultOptions,
                 }}
             />
             <Stack.Screen
                 name="Locations"
                 component={LocationsScreen}
-                options={defaultOptions}
+                options={{
+                    title: 'MAP',
+                    ...defaultOptions
+                }}
             />
         </Stack.Navigator>
     );

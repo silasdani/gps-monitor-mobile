@@ -10,6 +10,7 @@ import Fonts from '../utils/Fonts';
 import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
+import UserSerializer from '../Serializers/UserSerializer'
 
 export class SignUpScreen extends Component {
     state = {
@@ -53,11 +54,10 @@ export class SignUpScreen extends Component {
     onSignUp = () => {
         this.clearSignUpError();
 
-        const emailInput = this.state.email;
+        const { email, errors, name, password, passwordConfirm } = this.state;
         const emailRegex = /^.+@.+\..+$/;
 
-        if (!emailRegex.test(emailInput)) {
-            const { errors } = this.state;
+        if (!emailRegex.test(email)) {
             errors.emailError = true;
             errors.errorMessage = 'Must enter a valid email address';
             this.setState({
@@ -81,7 +81,10 @@ export class SignUpScreen extends Component {
             return;
         }
 
-        this.props.navigation.navigate("Login", this.state)
+        api.user.signup(UserSerializer.serialize(this.state))
+            .then((user) => user.data?.attributes);
+
+        this.props.navigation.navigate("Login")
     };
 
     onNameChange = (value) => {
