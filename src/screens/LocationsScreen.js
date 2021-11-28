@@ -8,11 +8,14 @@ import LocationSerializer from '../Serializers/LocationSerializer';
 import api from '../api/user';
 
 export class LocationsScreen extends Component {
-    constructor() {
-        super();
-    }
 
     state = {
+        region: {
+            latitude: 47.543754,
+            longitude: 23.897698,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        },
         markers: [],
     }
 
@@ -25,11 +28,14 @@ export class LocationsScreen extends Component {
 
     addNewMarker = (coords) => {
         let markers = this.state.markers;
-        markers.push({
+        const region = markers.push({
             latlng: coords,
             title: markers.length + 1
         })
-        this.setState({ markers })
+        this.setState({
+            region: markers[region - 1],
+            markers
+        })
     }
 
     componentDidMount() {
@@ -40,22 +46,20 @@ export class LocationsScreen extends Component {
             })
         })
     }
+
+    onRegionChange = (region) => {
+        this.setState({ region });
+    }
+
     render() {
-        // const { latlng, title } = ;
-        const latlng = Object.values(this.state.markers[this.state.markers?.length - 1])
-         console.warn(latlng)
 
         return (
             <View style={styles.container}>
-                {/* <MapView
+                <MapView
                     style={StyleSheet.absoluteFillObject}
                     provider={MapView.PROVIDE_GOOGLE}
-                    initialRegion={{
-                        latitude: latlng.latitude,
-                        longitude: latlng.longitude,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
+                    region={this.state.region}
+                    onRegionChange={this.onRegionChange}
                 >
                     {this.state.markers?.map((marker, index) => (
                         <Marker
@@ -64,7 +68,7 @@ export class LocationsScreen extends Component {
                             title={marker.title.toString()}
                         />
                     ))}
-                </MapView> */}
+                </MapView>
                 <CustomButton
                     style={styles.button}
                     disabled={false}

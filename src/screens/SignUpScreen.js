@@ -11,6 +11,7 @@ import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import UserSerializer from '../Serializers/UserSerializer'
+import api from '../api/user'
 
 export class SignUpScreen extends Component {
     state = {
