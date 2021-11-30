@@ -68,37 +68,4 @@ export default {
                 .then((location) => location.data)
         }
     },
-
-    // Tracks CRUD
-    tracks: {
-        fetchMyTracks: () =>
-            axios
-                .get(ENV + "/tracks/my")
-                .then((res) => res.data.data),
-
-        create: (track) =>
-            axios
-                .post(ENV + "/tracks", { track })
-                .then((res) => res.data),
-
-        update: (track, id) =>
-            axios
-                .patch(ENV + "/tracks/" + id, { track })
-                .then((res) => res.data),
-
-        weekly_report: () =>
-            axios
-                .get(ENV + "/tracks/weekly_report")
-                .then((res) => res.data),
-
-        getData: (id) =>
-            axios
-                .get(ENV + "/tracks/" + id)
-                .then((res) => res.data.data.attributes),
-
-        delete: (id) =>
-            axios
-                .delete(ENV + "/tracks/" + id)
-                .then(() => "Success"),
-    }
 }
