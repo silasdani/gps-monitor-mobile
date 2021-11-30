@@ -10,9 +10,10 @@ import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 
-import api from '../api/user'
+import { connect } from 'react-redux';
+import { login } from '../redux/userDuck';
 
-export class LoginScreen extends Component {
+class LoginScreen extends Component {
     state = {
         email: '',
         password: '',
@@ -42,9 +43,9 @@ export class LoginScreen extends Component {
     onLogin = () => {
         const { email, password } = this.state;
 
-        api.user.login({ email: email, password: password })
-            .then((user) => {
-                if (!!user.data?.id) this.props.navigation.push('Dashboard', user);
+        this.props.login({ email: email, password: password })
+            .then(() => {
+                if (!!this.props.user) this.props.navigation.push('Dashboard', this.props.user);
                 else {
                     this.setState({
                         ...this.state,
@@ -122,7 +123,22 @@ export class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen
+const mapStateToProps = state => {
+    console.warn(state)
+    return {
+        user: state.user,
+        message: "Hi, Daniel!!"
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        login: (credentials) => dispatch(login(credentials)),
+    }
+}
+
+export default connect(mapStateToProps, { login })(LoginScreen)
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

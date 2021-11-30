@@ -7,6 +7,7 @@ import Spacer from '../components/Spacer';
 import Colors from '../utils/Colors';
 import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
+import { connect } from 'react-redux';
 
 export class DashboardScreen extends Component {
     state = {
@@ -78,7 +79,7 @@ export class DashboardScreen extends Component {
     }
 }
 
-export default DashboardScreen;
+export default connect(state => console.warn(state))(DashboardScreen);
 
 const { height } = Dimensions.get('window');
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         width: '100%',
-        maxHeight: 3/4 * height ,
+        maxHeight: 3 / 4 * height,
         borderWidth: 1,
         borderColor: Colors.formTextInputBorderColor,
         backgroundColor: Colors.formTextInputBackgroundColor,

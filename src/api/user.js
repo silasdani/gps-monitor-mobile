@@ -1,8 +1,8 @@
 import axios from "axios";
 import setHeader from "../utils/setAuthorizationHeader";
 
-const ENV = "https://staging-gps-monitor.herokuapp.com/";
-// const ENV = "http://localhost:3000/";
+// const ENV = "https://staging-gps-monitor.herokuapp.com/";
+const ENV = "http://localhost:3000/";
 
 export default {
     // Account actions

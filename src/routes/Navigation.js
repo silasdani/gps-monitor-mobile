@@ -2,7 +2,6 @@ import React from 'react';
 import { LocationsScreen, DashboardScreen, SignUpScreen, LoginScreen } from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { connect } from 'react-redux';
 import Colors from '../utils/Colors';
 
 const Stack = createNativeStackNavigator();
@@ -69,4 +68,4 @@ export const StackNavigation = () => {
     );
 }
 
-export default connect()(StackNavigation);
+export default StackNavigation;
