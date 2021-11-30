@@ -1,42 +1,47 @@
 import api from "../api/user";
-import { USER_ADDED, USER_DELETED, USER_EDITED, USER_LOGGED_IN, USER_LOGGED_OUT } from "../types";
 import setAuthorizationHeader from "../utils/setAuthorizationHeader";
 
-const userFetched = (data) => ({
-    type: USER_ADDED,
-    user: data,
+export const USER_CREATED = "USER_CREATED";
+export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
+export const REQUEST_RESET_PASSWORD = "REQUEST_RESET_PASSWORD";
+
+export const USER_LOGGED_IN = "USER_LOGGED_IN";
+export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+export const USER_EDITED = "USER_EDITED";
+
+const userCreated = () => ({
+    type: USER_CREATED,
 });
 
-const userDeleted = (data) => ({
-    type: USER_DELETED,
-    user: data,
+const passwordReseted = () => ({
+    type: RESET_USER_PASSWORD,
+});
+
+const resetPasswordReseted = () => ({
+    type: RESET_USER_PASSWORD,
 });
 
 const userEdited = (data) => ({
     type: USER_EDITED,
-    user: data,
+    data,
 });
 
 const userLoggedIn = (data) => ({
     type: USER_LOGGED_IN,
-    user: data,
+    data,
 });
 
 const userLoggedOut = () => ({
     type: USER_LOGGED_OUT,
 });
 
-// ---------------------------- //
-
 export const login = (credentials) => (dispatch) => {
-    console.warn("im here")
     return api.user.login(credentials)
         .then((user) => {
             setAuthorizationHeader(user.remember_digest);
             dispatch(userLoggedIn(user));
         });
 }
-
 
 export const logout = () =>
     api.user.logout()
@@ -45,45 +50,34 @@ export const logout = () =>
             userLoggedOut();
         });
 
-export const confirm = (token) =>
-    api.user.confirm(token)
+export const resetPasswordRequest = ({ email }) => (dispatch) =>
+    api.user.resetPasswordRequest(email)
+        .then(dispatch(resetPasswordReseted()));
+
+export const resetPassword = (credentials) => (dispatch) =>
+    api.user.resetPassword(credentials)
+        .then(dispatch(passwordReseted()))
+
+export const signup = (data) => (dispatch) =>
+    api.user.signup(data)
         .then((user) => {
-            userLoggedIn(user);
+            dispatchEvent(userCreated());
+            dispatch(userLoggedIn(user));
         });
 
-export const resetPasswordRequest = ({ email }) =>
-    api.user.resetPasswordRequest(email);
-
-export const validateToken = (token) =>
-    api.user.validateToken(token);
-
-export const resetPassword = (data) =>
-    data;
-
-export const signup = (data) =>
-    api.user.signup(data).then((user) => userLoggedIn(user));
-
-export const addUser = (data) =>
-    api.users.addUser(data)
-        .then(userFetched(data));
-
-export const deleteUser = (id) =>
-    api.users.removeUser(id)
-        .then((id) => userDeleted(id));
-
-export const editUser = (user, id) =>
+export const editUser = (user, id) => (dispatch) =>
     api.users.editUser(user, id)
-        .then((data) => userEdited(data));
-
-
+        .then((data) => dispatch(userEdited(data)));
 
 export const user = (state = {}, action = {}) => {
     switch (action.type) {
         case USER_LOGGED_IN:
-            return action.user;
+            return {
+                ...state,
+                user: action.data,
+            };
 
         case USER_LOGGED_OUT:
-            return {};
         default:
             return state;
     }

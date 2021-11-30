@@ -1,14 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import user from './userDuck';
+import location from './locationDuck';
 
 const rootReducer = combineReducers({
-    user
+    user,
+    location
 });
 
 const configureStore = () => {
-    return createStore(rootReducer, applyMiddleware(thunk));
+    return createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 };
 
 export default configureStore;
