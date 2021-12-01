@@ -43,11 +43,11 @@ export const login = (credentials) => (dispatch) => {
         });
 }
 
-export const logout = () =>
+export const logout = () => (dispatch) =>
     api.user.logout()
         .then(() => {
             setAuthorizationHeader();
-            userLoggedOut();
+            dispatch(userLoggedOut())
         });
 
 export const resetPasswordRequest = ({ email }) => (dispatch) =>
@@ -74,7 +74,7 @@ export const user = (state = {}, action = {}) => {
         case USER_LOGGED_IN:
             return {
                 ...state,
-                user: action.data,
+                ...action.data,
             };
 
         case USER_LOGGED_OUT:

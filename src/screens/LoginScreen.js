@@ -124,10 +124,8 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => {
-    console.warn(state)
     return {
         user: state.user,
-        message: "Hi, Daniel!!"
     }
 }
 

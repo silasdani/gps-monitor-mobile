@@ -1,12 +1,19 @@
 import api from '../api/user'
+import LocationProvider from '../utils/LocationProvider';
 
 export const LOCATIONS_FETCHED = "LOCATIONS_FETCHED";
 export const LOCATION_CREATED = "LOCATION_CREATED";
 export const CURRENT_LOCATION_FETCHED = "CURRENT_LOCATION_FETCHED";
+export const CURRENT_LOCATION = "CURRENT_LOCATION";
 export const LOCATION_DELETED = "LOCATION_DELETED";
 
 const currentLocationFetched = (data) => ({
     type: CURRENT_LOCATION_FETCHED,
+    data
+});
+
+const located = (data) => ({
+    type: CURRENT_LOCATION,
     data
 });
 
@@ -19,6 +26,11 @@ const locationDeleted = (data) => ({
     type: LOCATION_DELETED,
     data
 })
+
+export const getCurrentLocation = () => (dispatch) => {
+    const currentLocation = LocationProvider.getLocation();
+    dispatch(located(currentLocation))
+}
 
 export const fetchCurrentLocation = (location) => (dispatch) =>
     api.locations.pushLocation(location)

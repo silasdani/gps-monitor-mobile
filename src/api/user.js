@@ -6,7 +6,6 @@ const ENV = "https://staging-gps-monitor.herokuapp.com/";
 // const ENV = "http://localhost:3000/";
 
 export default {
-    // Account actions
     user: {
         addLocation: (location) =>
             axios
@@ -18,13 +17,14 @@ export default {
                 .post(ENV + "/login", credentials)
                 .then((res) => {
                     setHeader(res.data.data.attributes.remember_digest)
-                    return res.data;
+                    return res.data.data.attributes;
                 })
                 .catch((r) => r),
 
         logout: () =>
             axios
-                .delete(ENV + "/logout").then(() => {
+                .delete(ENV + "/logout")
+                .then(() => {
                     setHeader()
                 }),
 
@@ -54,7 +54,6 @@ export default {
                 .then((res) => res),
     },
 
-    // Locations CRUD
     locations: {
         fetchMyLocations: () =>
             axios
