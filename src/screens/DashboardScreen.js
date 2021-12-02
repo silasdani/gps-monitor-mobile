@@ -7,51 +7,45 @@ import Colors from '../utils/Colors';
 import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 import { connect } from 'react-redux';
-import { getCurrentLocation } from '../redux/locationDuck'
+import { getCurrentLocation, fetchLocations } from '../redux/locationDuck'
 
-export class DashboardScreen extends Component {
+class DashboardScreen extends Component {
     state = {
         errorMessage: '',
-        location: {},
         hasLocation: false,
-        locations: [],
     }
 
-    componentWillMount() {
+    start = () => {
         this.props.getCurrentLocation();
         this.props.fetchLocations();
-        this.setState({ ...this.state, locations })
     }
 
-    onRefreshLocations = () => {
-        api.locations.fetchMyLocations().then(data => {
-            this.setState({ ...this.state, locations: data })
-        })
-        this.props.navigation.navigate('Locations', this.state)
+    onPressMap = () => {
+        this.props.navigation.navigate('Locations', this.props.locations)
     }
 
     render() {
-        const { locations } = this.state;
+        const { locations } = this.props;
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.innerContainer}>
+                {/* <ScrollView style={styles.innerContainer}>
                     {locations?.map(location => {
                         const { country, locality, facility_name } = location?.attributes;
                         return (<Text style={styles.text}> - {[country, locality, facility_name].join(', ')}</Text>)
                     })}
-                </ScrollView>
+                </ScrollView> */}
 
                 <Spacer height={18} />
 
-                {!this.state.hasLocation &&
+                {typeof this.props.currentLocation === 'undefined' &&
                     <View style={styles.errorContainer} >
                         <Text style={styles.error}>Locating... Please Wait!</Text>
                     </View>
                 }
 
-                {!!this.state.errorMessage &&
+                {typeof this.props.currentLocation === 'string' &&
                     <View>
-                        <Text style={styles.error}>{this.state.errorMessage}</Text>
+                        <Text style={styles.error}>{this.props.currentLocation}</Text>
                     </View>
                 }
 
@@ -59,9 +53,15 @@ export class DashboardScreen extends Component {
 
                 <CustomButton
                     disabled={false}
-                    onPress={this.onRefreshLocations}
+                    onPress={this.start}
                 >
-                    Refresh
+                    START
+                </CustomButton>
+                <CustomButton
+                    disabled={false}
+                    onPress={this.onPressMap}
+                >
+                    MAP
                 </CustomButton>
             </View>
         )
@@ -69,14 +69,15 @@ export class DashboardScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { currentLocation } = state;
+    const { locations, currentLocation } = state.location;
 
     return {
-        currentLocation
+        currentLocation,
+        locations
     }
 }
 
-export default connect(mapStateToProps, { getCurrentLocation })(DashboardScreen);
+export default connect(mapStateToProps, { getCurrentLocation, fetchLocations })(DashboardScreen);
 
 const { height } = Dimensions.get('window');
 

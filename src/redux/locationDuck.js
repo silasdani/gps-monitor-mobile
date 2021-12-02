@@ -28,8 +28,7 @@ const locationDeleted = (data) => ({
 })
 
 export const getCurrentLocation = () => (dispatch) => {
-    const currentLocation = LocationProvider.getLocation();
-    dispatch(located(currentLocation))
+    LocationProvider.getLocation(dispatch, located);
 }
 
 export const sendCurrentLocation = (location) => (dispatch) =>
@@ -44,12 +43,12 @@ export const deleteLocation = (location) => (dispatch) =>
     api.locations.deleteLocation(location)
         .then(dispatch(locationDeleted(location)));
 
-export default location = (state = {}, action = {}) => {
+export const location = (state = {}, action = {}) => {
     switch (action.type) {
-        case CURRENT_LOCATION_FETCHED:
+        case CURRENT_LOCATION:
             return {
                 ...state,
-                currentLocation: action.data,
+                currentLocation: { ...action.data },
                 locations: state.locations?.concat(action.data)
             }
         case LOCATION_DELETED:
@@ -66,6 +65,8 @@ export default location = (state = {}, action = {}) => {
             return state;
     }
 }
+
+export default location;
 
 
 
