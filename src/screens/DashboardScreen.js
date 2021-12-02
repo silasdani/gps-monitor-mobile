@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Dimensions, Text, ScrollView, View, StyleSheet } from 'react-native'
-import * as Location from 'expo-location';
 import api from '../api/user';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
@@ -8,6 +7,7 @@ import Colors from '../utils/Colors';
 import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 import { connect } from 'react-redux';
+import { getCurrentLocation } from '../redux/locationDuck'
 
 export class DashboardScreen extends Component {
     state = {
@@ -17,20 +17,9 @@ export class DashboardScreen extends Component {
         locations: [],
     }
 
-    _getLocation = async () => {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            let errorMessage = "Not Granted!";
-            this.setState({ ...this.state, errorMessage })
-            return;
-        }
-        const location = await Location.getCurrentPositionAsync();
-        this.setState({ location, hasLocation: true })
-    }
-
     componentWillMount() {
-        this._getLocation();
-        const locations = this.props.route.params?.included;
+        this.props.getCurrentLocation();
+        this.props.fetchLocations();
         this.setState({ ...this.state, locations })
     }
 
@@ -79,7 +68,15 @@ export class DashboardScreen extends Component {
     }
 }
 
-export default connect(state => console.warn(state))(DashboardScreen);
+const mapStateToProps = (state) => {
+    const { currentLocation } = state;
+
+    return {
+        currentLocation
+    }
+}
+
+export default connect(mapStateToProps, { getCurrentLocation })(DashboardScreen);
 
 const { height } = Dimensions.get('window');
 

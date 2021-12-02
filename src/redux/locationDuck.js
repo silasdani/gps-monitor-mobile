@@ -32,7 +32,7 @@ export const getCurrentLocation = () => (dispatch) => {
     dispatch(located(currentLocation))
 }
 
-export const fetchCurrentLocation = (location) => (dispatch) =>
+export const sendCurrentLocation = (location) => (dispatch) =>
     api.locations.pushLocation(location)
         .then(dispatch(currentLocationFetched(location)));
 
