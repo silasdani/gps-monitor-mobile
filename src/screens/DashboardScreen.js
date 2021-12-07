@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Dimensions, Text, ScrollView, View, StyleSheet } from 'react-native'
-import api from '../api/user';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import Colors from '../utils/Colors';

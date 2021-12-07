@@ -16,4 +16,11 @@ export default class LocationSerializer {
             facility_name: address.secondaryAddress(),
         }
     }
+
+    static deserialize(location) {
+
+        return {
+            ...location
+        }
+    }
 }

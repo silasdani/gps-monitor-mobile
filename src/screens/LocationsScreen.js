@@ -6,8 +6,10 @@ import Constants from '../utils/Constants';
 import Colors from '../utils/Colors';
 import LocationSerializer from '../Serializers/LocationSerializer';
 import api from '../api/user';
+import { sendCurrentLocation } from '../redux/locationDuck'
+import { connect } from 'react-redux';
 
-export class LocationsScreen extends Component {
+class LocationsScreen extends Component {
 
     state = {
         region: {
@@ -29,7 +31,7 @@ export class LocationsScreen extends Component {
     addNewMarker = (coords) => {
         let markers = this.state.markers;
         const region = markers.push({
-            latlng: coords,
+
             title: markers.length + 1
         })
         this.setState({
@@ -59,13 +61,13 @@ export class LocationsScreen extends Component {
                     style={StyleSheet.absoluteFillObject}
                     provider={MapView.PROVIDE_GOOGLE}
                     region={this.state.region}
-                    onRegionChange={this.onRegionChange}
+                // onRegionChange={this.onRegionChange}
                 >
-                    {this.state.markers?.map((marker, index) => (
+                    {this.props.markers?.map((marker) => (
                         <Marker
-                            key={index}
+                            key={marker.location_title}
                             coordinate={marker.latlng}
-                            title={marker.title.toString()}
+                            title={marker.location_title}
                         />
                     ))}
                 </MapView>
@@ -81,7 +83,27 @@ export class LocationsScreen extends Component {
     }
 }
 
-export default LocationsScreen
+const mapStateToProps = (state) => {
+    const { locations } = state.location;
+
+    let markers = [];
+
+    locations?.map(({ attributes }) => {
+        markers.push({
+            ...attributes,
+            latlng: {
+                latitude: Number(attributes?.latitude),
+                longitude: Number(attributes?.longitude),
+            },
+        })
+    })
+
+    return {
+        markers,
+    };
+}
+
+export default connect(mapStateToProps, { sendCurrentLocation })(LocationsScreen)
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({

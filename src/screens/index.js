@@ -1,4 +1,4 @@
-import { LocationsScreen } from '../screens/LocationsScreen';
+import LocationsScreen from '../screens/LocationsScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import { SignUpScreen } from '../screens/SignUpScreen'
 import LoginScreen from '../screens/LoginScreen';
