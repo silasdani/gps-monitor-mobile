@@ -20,7 +20,7 @@ class DashboardScreen extends Component {
     }
 
     onPressMap = () => {
-        this.props.navigation.navigate('Locations', this.props.locations)
+        this.props.navigation.navigate('Locations')
     }
 
     render() {

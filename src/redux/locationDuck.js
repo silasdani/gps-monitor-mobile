@@ -1,7 +1,9 @@
 import api from '../api/user'
+import LocationSerializer from '../Serializers/LocationSerializer';
 import LocationProvider from '../utils/LocationProvider';
 
 export const LOCATIONS_FETCHED = "LOCATIONS_FETCHED";
+export const LOCATIONS_FETCHED_FAILED = "LOCATIONS_FETCHED_FAILED";
 export const LOCATION_CREATED = "LOCATION_CREATED";
 export const CURRENT_LOCATION_FETCHED = "CURRENT_LOCATION_FETCHED";
 export const CURRENT_LOCATION = "CURRENT_LOCATION";
@@ -22,6 +24,11 @@ const locationsFetched = (data) => ({
     data
 });
 
+const locationsFetchedFailed = (data) => ({
+    type: LOCATIONS_FETCHED_FAILED,
+    data
+});
+
 const locationDeleted = (data) => ({
     type: LOCATION_DELETED,
     data
@@ -37,7 +44,15 @@ export const sendCurrentLocation = (location) => (dispatch) =>
 
 export const fetchLocations = () => (dispatch) =>
     api.locations.fetchMyLocations()
-        .then((locations) => dispatch(locationsFetched(locations)));
+        .then((locations) => {
+            // if (locations) {
+                console.warn(locations)
+            dispatch(locationsFetched(LocationSerializer.deserialize(locations)))
+            // } else {
+            //     dispatch(locationsFetchedFailed(locations.message))
+            // }
+        })
+        .catch(res => dispatch(locationsFetchedFailed(res)));
 
 export const deleteLocation = (location) => (dispatch) =>
     api.locations.deleteLocation(location)
@@ -49,7 +64,7 @@ export const location = (state = {}, action = {}) => {
             return {
                 ...state,
                 currentLocation: { ...action.data },
-                locations: state.locations?.concat(action.data)
+                // locations: state.locations?.concat(action.data)
             }
         case LOCATION_DELETED:
             return {

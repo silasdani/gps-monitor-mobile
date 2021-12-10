@@ -58,7 +58,10 @@ export default {
         fetchMyLocations: () =>
             axios
                 .get(ENV + "/locations/")
-                .then((res) => res.data.data),
+                .then((res) => res.data.data)
+                .catch((res) => {
+                    return res;
+                }),
 
         pushLocation: (location) => {
             const serializedLocation = LocationSerializer.serialize(location);
