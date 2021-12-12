@@ -5,13 +5,12 @@ import LocationProvider from '../utils/LocationProvider';
 export const LOCATIONS_FETCHED = "LOCATIONS_FETCHED";
 export const LOCATIONS_FETCHED_FAILED = "LOCATIONS_FETCHED_FAILED";
 export const LOCATION_CREATED = "LOCATION_CREATED";
-export const CURRENT_LOCATION_FETCHED = "CURRENT_LOCATION_FETCHED";
+export const CURRENT_LOCATION_SENT = "CURRENT_LOCATION_SENT";
 export const CURRENT_LOCATION = "CURRENT_LOCATION";
 export const LOCATION_DELETED = "LOCATION_DELETED";
 
-const currentLocationFetched = (data) => ({
-    type: CURRENT_LOCATION_FETCHED,
-    data
+const currentLocationSent = () => ({
+    type: CURRENT_LOCATION_SENT
 });
 
 const located = (data) => ({
@@ -38,21 +37,26 @@ export const getCurrentLocation = () => (dispatch) => {
     LocationProvider.getLocation(dispatch, located);
 }
 
-export const sendCurrentLocation = (location) => (dispatch) =>
+export const sendCurrentLocation = (location) => (dispatch) => {
+    // show spinner
     api.locations.pushLocation(location)
-        .then(dispatch(currentLocationFetched(location)));
+        .then(dispatch(currentLocationSent()));
+    // hide spinner
+}
 
-export const fetchLocations = () => (dispatch) =>
+export const fetchLocations = () => (dispatch) => {
+    // show spinner
     api.locations.fetchMyLocations()
         .then((locations) => {
-            // if (locations) {
-                console.warn(locations)
-            dispatch(locationsFetched(LocationSerializer.deserialize(locations)))
-            // } else {
-            //     dispatch(locationsFetchedFailed(locations.message))
-            // }
+            if (Array.isArray(locations)) {
+                dispatch(locationsFetched(LocationSerializer.deserialize(locations)))
+            } else {
+                dispatch(locationsFetchedFailed(locations.message))
+            }
         })
         .catch(res => dispatch(locationsFetchedFailed(res)));
+    // hide spinner
+}
 
 export const deleteLocation = (location) => (dispatch) =>
     api.locations.deleteLocation(location)

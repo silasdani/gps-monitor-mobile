@@ -64,9 +64,9 @@ export default {
                 }),
 
         pushLocation: (location) => {
-            const serializedLocation = LocationSerializer.serialize(location);
-            axios
-                .post(ENV + "/add_location", serializedLocation)
+            const serializedLocation = LocationSerializer.serialize(location?.coords);
+            return axios
+                .post(ENV + "/location", serializedLocation)
                 .then((location) => location.data)
         }
     },

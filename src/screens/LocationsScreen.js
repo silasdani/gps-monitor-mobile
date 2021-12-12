@@ -44,7 +44,7 @@ class LocationsScreen extends Component {
                 <CustomButton
                     style={styles.button}
                     disabled={false}
-                    onPress={(location) => (console.warn("Location Sent!!"))}
+                    onPress={() => (this.props.sendCurrentLocation(this.props.currentLocation))}
                 >
                     PUSH LOCATION
                 </CustomButton>
@@ -54,10 +54,11 @@ class LocationsScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { locations } = state.location;
-    console.warn( locations)
+    const { locations, currentLocation } = state.location;
+
     return {
-        locations
+        locations,
+        currentLocation,
     };
 }
 
