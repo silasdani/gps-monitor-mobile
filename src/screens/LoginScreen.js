@@ -82,7 +82,6 @@ class LoginScreen extends Component {
                 keyboardOpeningTime={1}
             >
                 <Spacer height={26} />
-
                 <FormTextInput
                     name="email"
                     labelText="Email"
@@ -116,8 +115,12 @@ class LoginScreen extends Component {
                 >
                     LOG IN
                 </CustomButton>
-
-                <Spacer height={35} />
+                <CustomButton
+                    // disabled={this.hasMissingFields()}
+                    onPress={() => this.props.navigation.push("Spinner")}
+                >
+                    Show Spinner
+                </CustomButton>
             </KeyboardAwareScrollView>
         )
     }
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
         paddingLeft: Constants.sideMargin,
         paddingRight: Constants.sideMargin,
         backgroundColor: Colors.sceneBackgroundColor,
-        height: height,
+        height: '100%',
     },
     errorContainer: {
         height: 26,
