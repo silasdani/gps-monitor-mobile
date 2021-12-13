@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, ScrollView, View, StyleSheet } from 'react-native'
+import { Dimensions, Text, Modal, View, StyleSheet } from 'react-native'
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import Colors from '../utils/Colors';
@@ -7,6 +7,7 @@ import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 import { connect } from 'react-redux';
 import { getCurrentLocation, fetchLocations } from '../redux/locationDuck'
+import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 
@@ -68,6 +69,12 @@ class DashboardScreen extends Component {
                 >
                     MAP
                 </CustomButton>
+                <Modal
+                    visible={this.props.spinner}
+                    transparent={true}
+                >
+                    <Spinner />
+                </Modal>
             </View>
         )
     }
@@ -78,7 +85,8 @@ const mapStateToProps = (state) => {
 
     return {
         currentLocation,
-        locations
+        locations,
+        spinner: state.spinner,
     }
 }
 

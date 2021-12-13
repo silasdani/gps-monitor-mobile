@@ -31,8 +31,8 @@ export default {
         signup: (user) =>
             axios
                 .post(ENV + "/users", { user })
-                .then((res) => console.warn(res))
-                .catch((res) => console.warn(res)),
+                .then((res) => (res))
+                .catch((res) => (res)),
 
         confirm: (token) =>
             axios

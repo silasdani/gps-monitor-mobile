@@ -79,7 +79,6 @@ class LoginScreen extends Component {
 
     render() {
         const { errorMessage } = this.state;
-        console.warn(this.props.spinner)
 
         return (
             <>
@@ -129,9 +128,7 @@ class LoginScreen extends Component {
                 </KeyboardAwareScrollView>
                 <Modal
                     visible={this.props.spinner}
-                    style={{
-                        opacity: 10
-                    }}
+                    transparent={true}
                 >
                     <Spinner />
                 </Modal>

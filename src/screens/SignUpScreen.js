@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import checkPasswords from '../utils/CheckPasswordsService';
@@ -13,6 +13,7 @@ import Spacer from '../components/Spacer';
 import UserSerializer from '../Serializers/UserSerializer'
 import api from '../api/user'
 import { connect } from 'react-redux';
+import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 
@@ -198,12 +199,25 @@ class SignUpScreen extends Component {
                 </CustomButton>
 
                 <Spacer height={35} />
+                <Modal
+                    visible={this.props.spinner}
+                    transparent={true}
+                >
+                    <Spinner />
+                </Modal>
             </KeyboardAwareScrollView>
         );
     }
 }
 
-export default connect(null, { hideSpinner, showSpinner })(SignUpScreen);
+const mapStateToProps = (state) => {
+
+    return {
+        spinner: state.spinner
+    }
+}
+
+export default connect(mapStateToProps, { hideSpinner, showSpinner })(SignUpScreen);
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

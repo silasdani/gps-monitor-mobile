@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, View } from 'react-native';
+import { StyleSheet, Dimensions, View, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import CustomButton from '../components/CustomButton';
 import Constants from '../utils/Constants';
 import Colors from '../utils/Colors';
 import { sendCurrentLocation } from '../redux/locationDuck'
 import { connect } from 'react-redux';
+import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 class LocationsScreen extends Component {
@@ -27,7 +28,6 @@ class LocationsScreen extends Component {
     }
 
     render() {
-        console.warn(this.props.locations)
         return (
             <View style={styles.container}>
                 <MapView
@@ -52,6 +52,12 @@ class LocationsScreen extends Component {
                 >
                     PUSH LOCATION
                 </CustomButton>
+                <Modal
+                    visible={this.props.spinner}
+                    transparent={true}
+                >
+                    <Spinner />
+                </Modal>
             </View >
         )
     }
@@ -63,6 +69,7 @@ const mapStateToProps = (state) => {
     return {
         locations,
         currentLocation,
+        spinner: state.spinner,
     };
 }
 
