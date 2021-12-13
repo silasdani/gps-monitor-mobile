@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -12,14 +12,9 @@ import Spacer from '../components/Spacer';
 
 import { connect } from 'react-redux';
 import { login } from '../redux/userDuck';
-import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 import Spinner from '../components/Spinner';
 
-class LoginScreen extends Component {
-    constructor(props) {
-        super(props);
-        props.hideSpinner();
-    }
+class LoginScreen extends React.Component {
     state = {
         email: '',
         password: '',
@@ -57,10 +52,8 @@ class LoginScreen extends Component {
                         ...this.state,
                         errorMessage: "Invalid email or password!"
                     })
-                    this.props.hideSpinner();
                 }
             });
-        this.props.showSpinner();
     }
 
     onEmailChange = (value) => {
@@ -144,10 +137,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { login, showSpinner, hideSpinner })(LoginScreen)
-
-// Calculate width of half width boxes that take into account margins and spacing.
-const { height } = Dimensions.get('window');
+export default connect(mapStateToProps, { login })(LoginScreen)
 
 const styles = StyleSheet.create({
     container: {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Animated,
@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 
-class SpinnerBall extends Component {
+class SpinnerBall extends React.Component {
   state = {
     spinValue: new Animated.Value(0)
   };

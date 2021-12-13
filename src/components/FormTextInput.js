@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -8,7 +8,7 @@ import {
 import Colors from '../utils/Colors'
 import Fonts from '../utils/Fonts';
 
-class FormTextInput extends Component {
+class FormTextInput extends React.Component {
     render() {
         const { onChange, required, labelText, disabled, value, capitalize, hasError } = this.props;
 

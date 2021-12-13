@@ -1,5 +1,4 @@
-import api from "../api/user";
-import setAuthorizationHeader from "../utils/setAuthorizationHeader";
+import UserService from '../api/UserService'
 
 export const USER_CREATED = "USER_CREATED";
 export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
@@ -21,11 +20,6 @@ const resetPasswordReseted = () => ({
     type: RESET_USER_PASSWORD,
 });
 
-const userEdited = (data) => ({
-    type: USER_EDITED,
-    data,
-});
-
 const userLoggedIn = (data) => ({
     type: USER_LOGGED_IN,
     data,
@@ -36,38 +30,41 @@ const userLoggedOut = () => ({
 });
 
 export const login = (credentials) => (dispatch) => {
-    return api.user.login(credentials)
+    return new UserService().login(credentials)
         .then((user) => {
-            setAuthorizationHeader(user.remember_digest);
             dispatch(userLoggedIn(user));
-        });
+        })
+        .catch(console.warn)
 }
 
-export const logout = () => (dispatch) =>
-    api.user.logout()
+export const logout = () => (dispatch) => {
+    return new UserService().logout()
         .then(() => {
-            setAuthorizationHeader();
             dispatch(userLoggedOut())
-        });
+        })
+        .catch(console.warn)
+}
 
-export const resetPasswordRequest = ({ email }) => (dispatch) =>
-    api.user.resetPasswordRequest(email)
-        .then(dispatch(resetPasswordReseted()));
+export const resetPasswordRequest = ({ email }) => (dispatch) => {
+    return new UserService().resetPasswordRequest(email)
+        .then(dispatch(resetPasswordReseted()))
+        .catch(console.warn)
+}
 
-export const resetPassword = (credentials) => (dispatch) =>
-    api.user.resetPassword(credentials)
+export const resetPassword = (credentials) => (dispatch) => {
+    return new UserService().resetPassword(credentials)
         .then(dispatch(passwordReseted()))
+        .catch(console.warn)
+}
 
-export const signup = (data) => (dispatch) =>
-    api.user.signup(data)
+export const signup = (data) => (dispatch) => {
+    return new UserService().signup(data)
         .then((user) => {
             dispatchEvent(userCreated());
             dispatch(userLoggedIn(user));
-        });
-
-export const editUser = (user, id) => (dispatch) =>
-    api.users.editUser(user, id)
-        .then((data) => dispatch(userEdited(data)));
+        })
+        .catch(console.warn)
+}
 
 export const user = (state = {}, action = {}) => {
     switch (action.type) {

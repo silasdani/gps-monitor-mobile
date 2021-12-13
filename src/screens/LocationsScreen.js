@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, Dimensions, View, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import CustomButton from '../components/CustomButton';
@@ -9,11 +9,7 @@ import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
-class LocationsScreen extends Component {
-    constructor(props) {
-        super(props);
-        props.hideSpinner();
-    }
+class LocationsScreen extends React.Component {
     state = {
         region: {
             latitude: 47.543754,

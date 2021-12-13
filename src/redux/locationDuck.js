@@ -1,4 +1,4 @@
-import api from '../api/user'
+import LocationService from '../api/LocationService';
 import LocationSerializer from '../Serializers/LocationSerializer';
 import LocationProvider from '../utils/LocationProvider';
 
@@ -28,25 +28,19 @@ const locationsFetchedFailed = (data) => ({
     data
 });
 
-const locationDeleted = (data) => ({
-    type: LOCATION_DELETED,
-    data
-})
-
 export const getCurrentLocation = () => (dispatch) => {
     LocationProvider.getLocation(dispatch, located);
 }
 
 export const sendCurrentLocation = (location) => (dispatch) => {
-    // show spinner 
-    api.locations.pushLocation(location)
-        .then(dispatch(currentLocationSent()));
-    // hide spinner
+    return new LocationService().pushLocation(location)
+        .then(dispatch(currentLocationSent()))
+        .catch(console.warn);
+
 }
 
 export const fetchLocations = () => (dispatch) => {
-    // show spinner
-    api.locations.fetchMyLocations()
+    return new LocationService().fetchMyLocations()
         .then((locations) => {
             if (Array.isArray(locations)) {
                 dispatch(locationsFetched(LocationSerializer.deserialize(locations)))
@@ -55,12 +49,7 @@ export const fetchLocations = () => (dispatch) => {
             }
         })
         .catch(res => dispatch(locationsFetchedFailed(res)));
-    // hide spinner
 }
-
-export const deleteLocation = (location) => (dispatch) =>
-    api.locations.deleteLocation(location)
-        .then(dispatch(locationDeleted(location)));
 
 const location = (state = {}, action = {}) => {
     switch (action.type) {
@@ -68,12 +57,6 @@ const location = (state = {}, action = {}) => {
             return {
                 ...state,
                 currentLocation: { ...action.data },
-                // locations: state.locations?.concat(action.data)
-            }
-        case LOCATION_DELETED:
-            return {
-                ...state,
-                locations: state.locations?.filter(({ key }) => action.data.key == key)
             }
         case LOCATIONS_FETCHED:
             return {

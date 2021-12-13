@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -11,17 +11,12 @@ import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import UserSerializer from '../Serializers/UserSerializer'
-import api from '../api/user'
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 
-class SignUpScreen extends Component {
-    constructor(props) {
-        super(props);
-        props.hideSpinner();
-    }
+class SignUpScreen extends React.Component {
     state = {
         name: '',
         email: '',
@@ -89,10 +84,7 @@ class SignUpScreen extends Component {
             });
             return;
         }
-
-        api.user.signup(UserSerializer.serialize(this.state))
-            .then((user) => user.data?.attributes);
-
+        // signup(this.state)        
         this.props.navigation.navigate("Login")
     };
 

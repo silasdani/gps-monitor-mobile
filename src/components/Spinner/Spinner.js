@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Animated,
@@ -6,7 +6,7 @@ import {
 import Colors from '../../utils/Colors';
 import SpinnerBall from './SpinnerBall';
 
-class Spinner extends Component {
+class Spinner extends React.Component {
 
   render() {
     return (

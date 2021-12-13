@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Dimensions, Text, Modal, View, StyleSheet } from 'react-native'
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
@@ -11,18 +11,13 @@ import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 
-class DashboardScreen extends Component {
-    constructor(props) {
-        super(props);
-        props.hideSpinner();
-    }
+class DashboardScreen extends React.Component {
     state = {
         errorMessage: '',
         hasLocation: false,
     }
 
     start = () => {
-        this.props.getCurrentLocation();
         this.props.fetchLocations();
     }
 
