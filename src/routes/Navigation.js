@@ -69,13 +69,6 @@ export const StackNavigation = () => {
                     ...defaultOptions
                 }}
             />
-            <Stack.Group
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                <Stack.Screen name='Spinner' component={Spinner} />
-            </Stack.Group>
         </Stack.Navigator>
     );
 }

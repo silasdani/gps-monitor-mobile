@@ -38,7 +38,7 @@ export const getCurrentLocation = () => (dispatch) => {
 }
 
 export const sendCurrentLocation = (location) => (dispatch) => {
-    // show spinner
+    // show spinner 
     api.locations.pushLocation(location)
         .then(dispatch(currentLocationSent()));
     // hide spinner
@@ -62,7 +62,7 @@ export const deleteLocation = (location) => (dispatch) =>
     api.locations.deleteLocation(location)
         .then(dispatch(locationDeleted(location)));
 
-export const location = (state = {}, action = {}) => {
+const location = (state = {}, action = {}) => {
     switch (action.type) {
         case CURRENT_LOCATION:
             return {

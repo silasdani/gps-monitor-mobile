@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Colors from '../utils/Colors';
@@ -12,8 +12,14 @@ import Spacer from '../components/Spacer';
 
 import { connect } from 'react-redux';
 import { login } from '../redux/userDuck';
+import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
+import Spinner from '../components/Spinner';
 
 class LoginScreen extends Component {
+    constructor(props) {
+        super(props);
+        props.hideSpinner();
+    }
     state = {
         email: '',
         password: '',
@@ -51,8 +57,10 @@ class LoginScreen extends Component {
                         ...this.state,
                         errorMessage: "Invalid email or password!"
                     })
+                    this.props.hideSpinner();
                 }
             });
+        this.props.showSpinner();
     }
 
     onEmailChange = (value) => {
@@ -71,57 +79,63 @@ class LoginScreen extends Component {
 
     render() {
         const { errorMessage } = this.state;
+        console.warn(this.props.spinner)
 
         return (
-            <KeyboardAwareScrollView
-                extraHeight={120}
-                enableOnAndroid
-                style={styles.container}
-                bounces={false}
-                enableResetScrollToCoords={false}
-                keyboardOpeningTime={1}
-            >
-                <Spacer height={26} />
-                <FormTextInput
-                    name="email"
-                    labelText="Email"
-                    hasError={!!errorMessage}
-                    keyboardType="email-address"
-                    onChange={this.onEmailChange}
-                    value={this.state.email}
-                />
-
-                <Spacer height={8} />
-
-                <FormTextInput
-                    name="password"
-                    labelText="Password"
-                    secureTextEntry={true}
-                    hasError={!!errorMessage}
-                    onChange={this.onPasswordChange}
-                    value={this.state.password}
-                />
-                {!!errorMessage && (
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.error}>{errorMessage}</Text>
-                    </View>
-                )}
-
-                <Spacer height={16} />
-
-                <CustomButton
-                    disabled={this.hasMissingFields()}
-                    onPress={this.onLogin}
+            <>
+                <KeyboardAwareScrollView
+                    extraHeight={120}
+                    enableOnAndroid
+                    style={styles.container}
+                    bounces={false}
+                    enableResetScrollToCoords={false}
+                    keyboardOpeningTime={1}
                 >
-                    LOG IN
-                </CustomButton>
-                <CustomButton
-                    // disabled={this.hasMissingFields()}
-                    onPress={() => this.props.navigation.push("Spinner")}
+                    <Spacer height={26} />
+                    <FormTextInput
+                        name="email"
+                        labelText="Email"
+                        hasError={!!errorMessage}
+                        keyboardType="email-address"
+                        onChange={this.onEmailChange}
+                        value={this.state.email}
+                    />
+
+                    <Spacer height={8} />
+
+                    <FormTextInput
+                        name="password"
+                        labelText="Password"
+                        secureTextEntry={true}
+                        hasError={!!errorMessage}
+                        onChange={this.onPasswordChange}
+                        value={this.state.password}
+                    />
+                    {!!errorMessage && (
+                        <View style={styles.errorContainer}>
+                            <Text style={styles.error}>{errorMessage}</Text>
+                        </View>
+                    )}
+
+                    <Spacer height={16} />
+
+                    <CustomButton
+                        disabled={this.hasMissingFields()}
+                        onPress={this.onLogin}
+                    >
+                        LOG IN
+                    </CustomButton>
+
+                </KeyboardAwareScrollView>
+                <Modal
+                    visible={this.props.spinner}
+                    style={{
+                        opacity: 10
+                    }}
                 >
-                    Show Spinner
-                </CustomButton>
-            </KeyboardAwareScrollView>
+                    <Spinner />
+                </Modal>
+            </>
         )
     }
 }
@@ -129,16 +143,18 @@ class LoginScreen extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        spinner: state.spinner
     }
 }
 
-export default connect(mapStateToProps, { login })(LoginScreen)
+export default connect(mapStateToProps, { login, showSpinner, hideSpinner })(LoginScreen)
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
+        display: 'flex',
         paddingLeft: Constants.sideMargin,
         paddingRight: Constants.sideMargin,
         backgroundColor: Colors.sceneBackgroundColor,

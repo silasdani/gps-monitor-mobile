@@ -6,9 +6,13 @@ import Constants from '../utils/Constants';
 import Colors from '../utils/Colors';
 import { sendCurrentLocation } from '../redux/locationDuck'
 import { connect } from 'react-redux';
+import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 class LocationsScreen extends Component {
-
+    constructor(props) {
+        super(props);
+        props.hideSpinner();
+    }
     state = {
         region: {
             latitude: 47.543754,
@@ -62,7 +66,7 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { sendCurrentLocation })(LocationsScreen)
+export default connect(mapStateToProps, { sendCurrentLocation, hideSpinner, showSpinner })(LocationsScreen)
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({

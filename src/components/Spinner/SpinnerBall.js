@@ -50,7 +50,7 @@ export default SpinnerBall;
 
 const styles = StyleSheet.create({
   imageContainer: {
-    position: 'relative',
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
   },

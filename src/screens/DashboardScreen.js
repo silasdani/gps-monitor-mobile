@@ -7,8 +7,14 @@ import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 import { connect } from 'react-redux';
 import { getCurrentLocation, fetchLocations } from '../redux/locationDuck'
+import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
+
 
 class DashboardScreen extends Component {
+    constructor(props) {
+        super(props);
+        props.hideSpinner();
+    }
     state = {
         errorMessage: '',
         hasLocation: false,
@@ -76,7 +82,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentLocation, fetchLocations })(DashboardScreen);
+export default connect(mapStateToProps, { getCurrentLocation, fetchLocations, hideSpinner, showSpinner })(DashboardScreen);
 
 const { height } = Dimensions.get('window');
 

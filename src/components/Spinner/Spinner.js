@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Animated,
-  Button
 } from 'react-native';
 import Colors from '../../utils/Colors';
 import SpinnerBall from './SpinnerBall';
@@ -13,7 +12,6 @@ class Spinner extends Component {
     return (
       <Animated.View style={styles.container}>
         <SpinnerBall />
-        <Button title='dismiss' onPress={() => this.props.navigation.goBack()} />
       </Animated.View>
     );
   }
