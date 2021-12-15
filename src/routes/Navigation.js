@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
+import { Button } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -21,9 +22,9 @@ const defaultOptions = {
 export const Home = () => {
     return (
         <Drawer.Navigator screenOptions={{
-            drawerStyle:{
+            drawerStyle: {
                 backgroundColor: Colors.kindaGray
-            }    
+            }
         }
         } >
             <Drawer.Screen

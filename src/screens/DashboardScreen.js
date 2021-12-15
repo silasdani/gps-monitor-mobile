@@ -56,7 +56,6 @@ class DashboardScreen extends React.Component {
                 >
                     MAP
                 </CustomButton>
-                <ActivityIndicator />
                 <Modal
                     visible={this.props.spinner}
                     transparent={true}
