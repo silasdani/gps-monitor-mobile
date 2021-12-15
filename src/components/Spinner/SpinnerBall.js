@@ -7,6 +7,22 @@ import {
   View
 } from 'react-native';
 
+export const clockwiseSpin = (spinValue) => ({
+  transform: [{
+    rotate: spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg']
+    })
+  }]
+});
+export const trigonometricSpin = (spinValue) => ({
+  transform: [{
+    rotate: spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['360deg', '0deg']
+    })
+  }]
+});
 class SpinnerBall extends React.Component {
   state = {
     spinValue: new Animated.Value(0)
@@ -22,26 +38,10 @@ class SpinnerBall extends React.Component {
     ).start();
   }
   render() {
-    const clockwiseSpin = {
-      transform: [{
-        rotate: this.state.spinValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['0deg', '360deg']
-        })
-      }]
-    };
-    const trigonometricSpin = {
-      transform: [{
-        rotate: this.state.spinValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['360deg', '0deg']
-        })
-      }]
-    };
     return <View style={styles.imageContainer} >
       <Image source={require('./location-pin.png')} style={styles.pin} />
-      <Animated.Image source={require('./INNERCIRCLE.png')} style={[styles.icon, clockwiseSpin]} />
-      <Animated.Image source={require('./OUTERCIRCLE.png')} style={[styles.icon, trigonometricSpin]} />
+      <Animated.Image source={require('./INNERCIRCLE.png')} style={[styles.icon, clockwiseSpin(this.state.spinValue)]} />
+      <Animated.Image source={require('./OUTERCIRCLE.png')} style={[styles.icon, trigonometricSpin(this.state.spinValue)]} />
     </View>;
   }
 }
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
+    tintColor: 'aquamarine',
     position: 'absolute',
     width: 160,
     height: 70
   },
   pin: {
+    tintColor: 'red',
     position: 'absolute',
     width: 60,
     height: 60

@@ -14,6 +14,7 @@ const colors = {
     foggyDayGray: '#78868D',
     fancyGreen: '#49C2C6',
     green: 'green',
+    kindaGray: '#e8e8f6'
   };
   
   const Colors = {
@@ -37,7 +38,7 @@ const colors = {
     activeTabBackgroundColor: '#36424D',
   
     // Scene
-    sceneBackgroundColor: colors.barelyGray,
+    sceneBackgroundColor: colors.kindaGray,
   
     // Jobs Tabs
     activeJobsTabColor: colors.red,
@@ -52,20 +53,6 @@ const colors = {
     redBadge: colors.teal,
     redBadgeText: 'white',
     redBadgeBorderColor: colors.blueSteel,
-  
-    // Jobs List
-    jobListHeaderBackgroundColor: colors.lightGray,
-    jobListItemBackgroundColor: 'white',
-    jobListItemChevronColor: colors.ghostsWhisperGray,
-    jobListItemTextColor: colors.cementGray,
-    jobListItemTitleColor: '#354D5D',
-    jobListItemBorderColor: colors.barelyGray,
-    jobListItemShiftPendingBorderColor: colors.ghostsWhisperGray,
-    jobListItemShiftPendingTextColor: colors.red,
-    jobListItemShiftPendingBackgroundColor: colors.ghostsWhisperGray,
-    jobListEmptyStateButtonColor: colors.red,
-    jobListEmptyStateTextColor: '#AAA',
-    jobListItemRateColor: '#354D5D',
   
     // Day Panel
     dayPanelHeadingColor: 'white',

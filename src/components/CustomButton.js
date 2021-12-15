@@ -27,10 +27,11 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
     button: {
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        borderRadius: 3,
+        borderRadius: 40,
         elevation: 2,
         shadowOffset: {
             width: 0,
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: Fonts.buttonText,
         fontSize: 20,
-        fontStyle: 'italic',
         fontWeight: '700',
         color: Colors.white,
         letterSpacing: Fonts.buttonLetterSpacing,

@@ -4,7 +4,7 @@ import ApiService from "./ApiService";
 class UserService extends ApiService {
     constructor() {
         super();
-        this.url = '/users';
+        this.url = '/location';
     }
 
     login(credentials) {

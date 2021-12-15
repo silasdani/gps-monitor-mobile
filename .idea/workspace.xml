@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a4a9808-76ce-4517-bbdc-6d3b53a37945" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Spinner/Spinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Spinner/Spinner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/ApiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/ApiService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,10 +15,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="22CDeQBOof8y92z2mcD0WKYzfId" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
   <component name="PropertiesReact.Component">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />

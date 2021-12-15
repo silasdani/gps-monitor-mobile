@@ -18,11 +18,14 @@ const defaultOptions = {
     },
 }
 
-
-
 export const Home = () => {
     return (
-        <Drawer.Navigator >
+        <Drawer.Navigator screenOptions={{
+            drawerStyle:{
+                backgroundColor: Colors.kindaGray
+            }    
+        }
+        } >
             <Drawer.Screen
                 name="Login"
                 component={LoginScreen}

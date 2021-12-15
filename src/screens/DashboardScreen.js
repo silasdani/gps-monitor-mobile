@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, Text, Modal, View, StyleSheet } from 'react-native'
+import { Dimensions, Text, Modal, View, StyleSheet, Image, ActivityIndicator } from 'react-native'
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import Colors from '../utils/Colors';
@@ -12,13 +12,13 @@ import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 
 class DashboardScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.fetchLocations();
+    }
     state = {
         errorMessage: '',
         hasLocation: false,
-    }
-
-    start = () => {
-        this.props.fetchLocations();
     }
 
     onPressMap = () => {
@@ -29,13 +29,11 @@ class DashboardScreen extends React.Component {
         const { locations } = this.props;
         return (
             <View style={styles.container}>
-                {/* <ScrollView style={styles.innerContainer}>
-                    {locations?.map(location => {
-                        const { country, locality, facility_name } = location?.attributes;
-                        return (<Text style={styles.text}> - {[country, locality, facility_name].join(', ')}</Text>)
-                    })}
-                </ScrollView> */}
-
+                <View style={styles.bannerRow} >
+                    <Image source={require('../components/jog-icon.png')} style={styles.image} />
+                    <Image source={require('../components/sports-icon.png')} style={styles.image} />
+                    <Image source={require('../components/volleyball-icon.png')} style={styles.image} />
+                </View>
                 <Spacer height={18} />
 
                 {typeof this.props.currentLocation === 'undefined' &&
@@ -54,16 +52,11 @@ class DashboardScreen extends React.Component {
 
                 <CustomButton
                     disabled={false}
-                    onPress={this.start}
-                >
-                    START
-                </CustomButton>
-                <CustomButton
-                    disabled={false}
                     onPress={this.onPressMap}
                 >
                     MAP
                 </CustomButton>
+                <ActivityIndicator />
                 <Modal
                     visible={this.props.spinner}
                     transparent={true}
@@ -94,7 +87,17 @@ const styles = StyleSheet.create({
         paddingLeft: Constants.sideMargin,
         paddingRight: Constants.sideMargin,
         backgroundColor: Colors.sceneBackgroundColor,
+        alignItems: 'center',
         height: height,
+    },
+    bannerRow: {
+        top: 20,
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    image: {
+        maxHeight: 120,
+        maxWidth: 120,
     },
     innerContainer: {
         width: '100%',
@@ -122,4 +125,7 @@ const styles = StyleSheet.create({
         paddingLeft: 14,
         fontFamily: Fonts.bodyText,
     },
+    earth: {
+        top: 10,
+    }
 });

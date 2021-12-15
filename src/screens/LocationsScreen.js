@@ -10,15 +10,6 @@ import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 class LocationsScreen extends React.Component {
-    state = {
-        region: {
-            latitude: 47.543754,
-            longitude: 23.897698,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        },
-    }
-
     onRegionChange = (region) => {
         this.setState({ region });
     }
@@ -27,11 +18,13 @@ class LocationsScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <MapView
-                    // initialCamera={10}
                     style={StyleSheet.absoluteFillObject}
                     provider={MapView.PROVIDE_GOOGLE}
-                    region={this.state.region}
-                // onRegionChange={this.onRegionChange}
+                    region={{
+                        ...this.props.currentLocation?.coords,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421
+                    }}
                 >
                     {this.props.locations?.map((marker) => (
                         <Marker
