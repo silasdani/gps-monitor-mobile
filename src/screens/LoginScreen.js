@@ -13,6 +13,7 @@ import Spacer from '../components/Spacer';
 import { connect } from 'react-redux';
 import { login } from '../redux/userDuck';
 import Spinner from '../components/Spinner';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class LoginScreen extends React.Component {
     state = {
@@ -46,8 +47,7 @@ class LoginScreen extends React.Component {
 
         this.props.login({ email: email, password: password })
             .then(() => {
-                if (!!this.props.user) this.props.navigation.push('Dashboard', this.props.user);
-                else {
+                if (!this.props.user) {
                     this.setState({
                         ...this.state,
                         errorMessage: "Invalid email or password!"
@@ -117,7 +117,11 @@ class LoginScreen extends React.Component {
                     >
                         LOG IN
                     </CustomButton>
-
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate("Signup")}
+                    >
+                        <Text style={styles.accountText}>Don't have an account?</Text>
+                    </TouchableOpacity>
                 </KeyboardAwareScrollView>
                 <Modal
                     visible={this.props.spinner}
@@ -158,4 +162,12 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontFamily: Fonts.bodyText,
     },
+    accountText: {
+        top: 10,
+        color: Colors.darkText,
+        fontWeight: '700',
+        alignSelf: 'flex-end',
+        fontSize: 18,
+        fontStyle: 'italic'
+    }
 });

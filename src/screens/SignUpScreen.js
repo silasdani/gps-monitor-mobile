@@ -10,11 +10,10 @@ import Fonts from '../utils/Fonts';
 import FormTextInput from '../components/FormTextInput';
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
-import UserSerializer from '../Serializers/UserSerializer'
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
-
+import { signup } from '../redux/userDuck'
 
 class SignUpScreen extends React.Component {
     state = {
@@ -84,8 +83,14 @@ class SignUpScreen extends React.Component {
             });
             return;
         }
-        // signup(this.state)        
-        this.props.navigation.navigate("Login")
+
+        const user = {
+            name,
+            email,
+            password,
+            password_confirmation: passwordConfirm
+        }
+        this.props.signup({ ...user })
     };
 
     onNameChange = (value) => {
@@ -209,7 +214,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { hideSpinner, showSpinner })(SignUpScreen);
+export default connect(mapStateToProps, { signup, hideSpinner, showSpinner })(SignUpScreen);
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

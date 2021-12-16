@@ -1,5 +1,5 @@
 import UserService from '../api/UserService'
-
+import * as RootNavigation from '../routes/Navigation';
 export const USER_CREATED = "USER_CREATED";
 export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
 export const REQUEST_RESET_PASSWORD = "REQUEST_RESET_PASSWORD";
@@ -33,6 +33,7 @@ export const login = (credentials) => (dispatch) => {
     return new UserService().login(credentials)
         .then((user) => {
             dispatch(userLoggedIn(user));
+            RootNavigation.navigate('Dashboard', user);
         })
         .catch(console.warn)
 }
@@ -60,8 +61,9 @@ export const resetPassword = (credentials) => (dispatch) => {
 export const signup = (data) => (dispatch) => {
     return new UserService().signup(data)
         .then((user) => {
-            dispatchEvent(userCreated());
+            dispatch(userCreated());
             dispatch(userLoggedIn(user));
+            RootNavigation.navigate('Login', { user: user });
         })
         .catch(console.warn)
 }

@@ -4,7 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import CustomButton from '../components/CustomButton';
 import Constants from '../utils/Constants';
 import Colors from '../utils/Colors';
-import { sendCurrentLocation } from '../redux/locationDuck'
+import { sendCurrentLocation, fetchLocations } from '../redux/locationDuck'
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
@@ -37,7 +37,10 @@ class LocationsScreen extends React.Component {
                 <CustomButton
                     style={styles.button}
                     disabled={false}
-                    onPress={() => (this.props.sendCurrentLocation(this.props.currentLocation))}
+                    onPress={() => {
+                        this.props.sendCurrentLocation(this.props.currentLocation)
+                        this.props.fetchLocations()
+                    }}
                 >
                     PUSH LOCATION
                 </CustomButton>
@@ -62,7 +65,7 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { sendCurrentLocation, hideSpinner, showSpinner })(LocationsScreen)
+export default connect(mapStateToProps, { sendCurrentLocation, fetchLocations, hideSpinner, showSpinner })(LocationsScreen)
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({

@@ -34,19 +34,8 @@ class DashboardScreen extends React.Component {
                     <Image source={require('../components/sports-icon.png')} style={styles.image} />
                     <Image source={require('../components/volleyball-icon.png')} style={styles.image} />
                 </View>
+
                 <Spacer height={18} />
-
-                {typeof this.props.currentLocation === 'undefined' &&
-                    <View style={styles.errorContainer} >
-                        <Text style={styles.error}>Locating... Please Wait!</Text>
-                    </View>
-                }
-
-                {typeof this.props.currentLocation === 'string' &&
-                    <View>
-                        <Text style={styles.error}>{this.props.currentLocation}</Text>
-                    </View>
-                }
 
                 <Spacer height={8} />
 
@@ -54,7 +43,7 @@ class DashboardScreen extends React.Component {
                     disabled={false}
                     onPress={this.onPressMap}
                 >
-                    MAP
+                    TO THE MAP
                 </CustomButton>
                 <Modal
                     visible={this.props.spinner}
@@ -87,6 +76,7 @@ const styles = StyleSheet.create({
         paddingRight: Constants.sideMargin,
         backgroundColor: Colors.sceneBackgroundColor,
         alignItems: 'center',
+        justifyContent: 'center',
         height: height,
     },
     bannerRow: {

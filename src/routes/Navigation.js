@@ -1,10 +1,17 @@
 import React from 'react';
 import { LocationsScreen, DashboardScreen, SignUpScreen, LoginScreen } from '../screens';
-import Spinner from '../components/Spinner'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
-import { Button } from 'react-native';
+import { createNavigationContainerRef } from '@react-navigation/native';
+
+export const navigationRef = createNavigationContainerRef()
+
+export function navigate(name, params = {}) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
+}
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,7 +43,7 @@ export const Home = () => {
                 }}
             />
             <Drawer.Screen
-                name="SignUp"
+                name="Signup"
                 component={SignUpScreen}
                 options={{
                     title: 'SIGN UP',
@@ -49,30 +56,32 @@ export const Home = () => {
 
 export const StackNavigation = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                options={{
-                    headerShown: false,
-                }}
-                name="Login/SignUp"
-                component={Home}
-            />
-            <Stack.Screen
-                name="Dashboard"
-                component={DashboardScreen}
-                options={{
-                    title: 'MY LOCATIONS',
-                    ...defaultOptions,
-                }}
-            />
-            <Stack.Screen
-                name="Locations"
-                component={LocationsScreen}
-                options={{
-                    title: 'MAP',
-                    ...defaultOptions
-                }}
-            />
+        <Stack.Navigator initialRouteName='Login'>
+                <Stack.Screen
+                    options={{
+                        headerShown: false,
+                    }}
+                    name="Login/SignUp"
+                    component={Home}
+                />
+                <Stack.Screen
+                    name="Dashboard"
+                    component={DashboardScreen}
+                    options={{
+                        title: 'HOME',
+                        ...defaultOptions,
+                        headerBackButtonMenuEnabled: false,
+                        headerBackVisible: false
+                    }}
+                />
+                <Stack.Screen
+                    name="Locations"
+                    component={LocationsScreen}
+                    options={{
+                        title: 'MAP',
+                        ...defaultOptions
+                    }}
+                />
         </Stack.Navigator>
     );
 }
