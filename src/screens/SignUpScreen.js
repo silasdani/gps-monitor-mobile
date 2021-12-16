@@ -12,10 +12,13 @@ import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
-import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 import { signup } from '../redux/userDuck'
 
 class SignUpScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     state = {
         name: '',
         email: '',
@@ -214,7 +217,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { signup, hideSpinner, showSpinner })(SignUpScreen);
+export default connect(mapStateToProps, { signup })(SignUpScreen);
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

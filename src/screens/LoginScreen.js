@@ -16,6 +16,10 @@ import Spinner from '../components/Spinner';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class LoginScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     state = {
         email: '',
         password: '',
@@ -44,16 +48,7 @@ class LoginScreen extends React.Component {
 
     onLogin = () => {
         const { email, password } = this.state;
-
         this.props.login({ email: email, password: password })
-            .then(() => {
-                if (!this.props.user) {
-                    this.setState({
-                        ...this.state,
-                        errorMessage: "Invalid email or password!"
-                    })
-                }
-            });
     }
 
     onEmailChange = (value) => {
