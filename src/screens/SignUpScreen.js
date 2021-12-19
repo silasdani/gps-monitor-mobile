@@ -12,7 +12,7 @@ import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
-import { signup } from '../redux/userDuck'
+import { login, signup } from '../redux/userDuck'
 
 class SignUpScreen extends React.Component {
     constructor(props) {
@@ -61,6 +61,7 @@ class SignUpScreen extends React.Component {
         this.clearSignUpError();
 
         const { email, errors, name, password, passwordConfirm } = this.state;
+        const { navigation, signup } = this.props;
         const emailRegex = /^.+@.+\..+$/;
 
         if (!emailRegex.test(email)) {
@@ -93,7 +94,8 @@ class SignUpScreen extends React.Component {
             password,
             password_confirmation: passwordConfirm
         }
-        this.props.signup({ ...user })
+        signup({ ...user })
+            .then(() => navigation.navigate('Login'));
     };
 
     onNameChange = (value) => {
@@ -217,7 +219,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { signup })(SignUpScreen);
+export default connect(mapStateToProps, { signup, login })(SignUpScreen);
 
 // Calculate width of half width boxes that take into account margins and spacing.
 const { height } = Dimensions.get('window');

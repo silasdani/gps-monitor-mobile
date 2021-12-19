@@ -10,6 +10,10 @@ import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 
 class LocationsScreen extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     onRegionChange = (region) => {
         this.setState({ region });
     }
@@ -38,8 +42,9 @@ class LocationsScreen extends React.Component {
                     style={styles.button}
                     disabled={false}
                     onPress={() => {
-                        this.props.sendCurrentLocation(this.props.currentLocation)
-                        this.props.fetchLocations()
+                        this.props.sendCurrentLocation(this.props.currentLocation);
+                        this.props.fetchLocations();
+                        this.props.fetchLocations();
                     }}
                 >
                     PUSH LOCATION

@@ -3,15 +3,6 @@ import { LocationsScreen, DashboardScreen, SignUpScreen, LoginScreen } from '../
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
-import { createNavigationContainerRef } from '@react-navigation/native';
-
-export const navigationRef = createNavigationContainerRef()
-
-export function navigate(name, params = {}) {
-  if (navigationRef.isReady()) {
-    navigationRef.navigate(name, params);
-  }
-}
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -56,6 +47,7 @@ export const Home = () => {
 
 export const StackNavigation = () => {
     return (
+        <Overlay>
         <Stack.Navigator initialRouteName='Login'>
                 <Stack.Screen
                     options={{
@@ -83,6 +75,8 @@ export const StackNavigation = () => {
                     }}
                 />
         </Stack.Navigator>
+       
+        </Overlay>
     );
 }
 

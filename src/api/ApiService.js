@@ -1,7 +1,6 @@
 import axios from "axios";
 import { hideSpinner, showSpinner } from "../redux/spinnerDuck";
-import { store } from '../../App'
-
+import store from '../redux/store'
 // const ENV = () => "https://staging-gps-monitor.herokuapp.com/";
 const ENV = () => "http://localhost:3000/";
 // axios.defaults.timeout = 30000;

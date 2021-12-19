@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
+import { View, Text, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Colors from '../utils/Colors';
@@ -47,8 +47,11 @@ class LoginScreen extends React.Component {
     }
 
     onLogin = () => {
+        const { navigation, login } = this.props;
+
         const { email, password } = this.state;
-        this.props.login({ email: email, password: password })
+        login({ email: email, password: password })
+            .then(() => navigation.navigate('Dashboard'));
     }
 
     onEmailChange = (value) => {
