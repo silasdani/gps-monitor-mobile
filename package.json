@@ -22,6 +22,7 @@
     "expo-permissions": "^13.0.3",
     "expo-status-bar": "~1.1.0",
     "faker": "^5.5.3",
+    "jwt-decode": "^3.1.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.3.1",
