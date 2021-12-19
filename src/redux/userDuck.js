@@ -1,10 +1,8 @@
-import UserService from '../api/UserService'
+import UserService from "../services/UserService";
+
 export const USER_CREATED = "USER_CREATED";
 export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
 export const REQUEST_RESET_PASSWORD = "REQUEST_RESET_PASSWORD";
-
-export const USER_LOGGED_IN = "USER_LOGGED_IN";
-export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
 export const USER_EDITED = "USER_EDITED";
 
 const userCreated = () => ({
@@ -18,31 +16,6 @@ const passwordReseted = () => ({
 const resetPasswordReseted = () => ({
     type: RESET_USER_PASSWORD,
 });
-
-const userLoggedIn = (data) => ({
-    type: USER_LOGGED_IN,
-    data,
-});
-
-const userLoggedOut = () => ({
-    type: USER_LOGGED_OUT,
-});
-
-export const login = (credentials) => (dispatch) => {
-    return new UserService().login(credentials)
-        .then((user) => {
-            dispatch(userLoggedIn(user));
-        })
-        .catch(console.warn)
-}
-
-export const logout = () => (dispatch) => {
-    return new UserService().logout()
-        .then(() => {
-            dispatch(userLoggedOut())
-        })
-        .catch(console.warn)
-}
 
 export const resetPasswordRequest = ({ email }) => (dispatch) => {
     return new UserService().resetPasswordRequest(email)
@@ -67,13 +40,6 @@ export const signup = (data) => (dispatch) => {
 
 export const user = (state = {}, action = {}) => {
     switch (action.type) {
-        case USER_LOGGED_IN:
-            return {
-                ...state,
-                ...action.data,
-            };
-
-        case USER_LOGGED_OUT:
         default:
             return state;
     }

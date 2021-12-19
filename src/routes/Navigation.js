@@ -3,6 +3,7 @@ import { LocationsScreen, DashboardScreen, SignUpScreen, LoginScreen } from '../
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
+import { connect } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -45,39 +46,37 @@ export const Home = () => {
     )
 }
 
-export const StackNavigation = () => {
+const StackNavigation = (props) => {
+    console.warn(props)
     return (
-        <Overlay>
         <Stack.Navigator initialRouteName='Login'>
-                <Stack.Screen
-                    options={{
-                        headerShown: false,
-                    }}
-                    name="Login/SignUp"
-                    component={Home}
-                />
-                <Stack.Screen
-                    name="Dashboard"
-                    component={DashboardScreen}
-                    options={{
-                        title: 'HOME',
-                        ...defaultOptions,
-                        headerBackButtonMenuEnabled: false,
-                        headerBackVisible: false
-                    }}
-                />
-                <Stack.Screen
-                    name="Locations"
-                    component={LocationsScreen}
-                    options={{
-                        title: 'MAP',
-                        ...defaultOptions
-                    }}
-                />
+            <Stack.Screen
+                options={{
+                    headerShown: false,
+                }}
+                name="Login/SignUp"
+                component={Home}
+            />
+            <Stack.Screen
+                name="Dashboard"
+                component={DashboardScreen}
+                options={{
+                    title: 'HOME',
+                    ...defaultOptions,
+                    headerBackButtonMenuEnabled: false,
+                    headerBackVisible: false
+                }}
+            />
+            <Stack.Screen
+                name="Locations"
+                component={LocationsScreen}
+                options={{
+                    title: 'MAP',
+                    ...defaultOptions
+                }}
+            />
         </Stack.Navigator>
-       
-        </Overlay>
     );
 }
 
-export default StackNavigation;
+export default connect((state) => ({ user: state.user }))(StackNavigation);
