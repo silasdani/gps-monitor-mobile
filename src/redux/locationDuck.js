@@ -8,6 +8,7 @@ export const LOCATION_CREATED = "LOCATION_CREATED";
 export const CURRENT_LOCATION_SENT = "CURRENT_LOCATION_SENT";
 export const CURRENT_LOCATION = "CURRENT_LOCATION";
 export const LOCATION_DELETED = "LOCATION_DELETED";
+export const CLEAR_LOCATION_STATE = "CLEAR_LOCATION_STATE";
 
 const currentLocationSent = () => ({
     type: CURRENT_LOCATION_SENT
@@ -27,6 +28,10 @@ const locationsFetchedFailed = (data) => ({
     type: LOCATIONS_FETCHED_FAILED,
     data
 });
+
+export const clearLocationState = () => ({
+    type: CLEAR_LOCATION_STATE
+})
 
 export const getCurrentLocation = () => (dispatch) => {
     LocationProvider.getLocation(dispatch, located);
@@ -51,7 +56,12 @@ export const fetchLocations = () => (dispatch) => {
         .catch(res => dispatch(locationsFetchedFailed(res)));
 }
 
-const location = (state = {}, action = {}) => {
+const DEFAULT_STATE = {
+    currentLocation: {},
+    locations: []
+}
+
+const location = (state = DEFAULT_STATE, action = {}) => {
     switch (action.type) {
         case CURRENT_LOCATION:
             return {
@@ -63,6 +73,8 @@ const location = (state = {}, action = {}) => {
                 ...state,
                 locations: action.data
             }
+        case CLEAR_LOCATION_STATE:
+            return DEFAULT_STATE;
         default:
             return state;
     }

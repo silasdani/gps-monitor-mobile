@@ -1,5 +1,6 @@
 import UserSerializer from '../Serializers/UserSerializer';
 import SessionService from '../services/SessionService';
+import { clearLocationState } from './locationDuck';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
@@ -25,7 +26,9 @@ export const login = (credentials) => (dispatch) => {
 export const logout = () => (dispatch) => {
     return new SessionService().logout()
         .then(() => {
-            dispatch(userLoggedOut())
+            dispatch(clearLocationState());
+            dispatch(userLoggedOut());
+
         })
         .catch(console.warn)
 }

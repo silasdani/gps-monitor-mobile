@@ -19,6 +19,7 @@ class LocationsScreen extends React.Component {
     }
 
     render() {
+        const { locations } = this.props;
         return (
             <View style={styles.container}>
                 <MapView
@@ -30,11 +31,11 @@ class LocationsScreen extends React.Component {
                         longitudeDelta: 0.0421
                     }}
                 >
-                    {this.props.locations?.map((marker) => (
+                    {locations?.map((marker) => (
                         <Marker
                             key={marker.location_title}
                             coordinate={marker.latlng}
-                            title={marker.location_title}
+                            title={`${marker.latitude}, ${marker.longitude}`}
                         />
                     ))}
                 </MapView>
@@ -61,7 +62,7 @@ class LocationsScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { locations, currentLocation } = state.location;
+    const { locations = [], currentLocation } = state.location;
 
     return {
         locations,
