@@ -14,7 +14,8 @@ import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
 class DashboardScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchLocations();
+        if (!props.session.signedIn) props.navigation.navigate('Login')
+        props.fetchLocations();
     }
     state = {
         errorMessage: '',
@@ -58,11 +59,11 @@ class DashboardScreen extends React.Component {
 
 const mapStateToProps = (state) => {
     const { locations, currentLocation } = state.location;
-
     return {
         currentLocation,
         locations,
         spinner: state.spinner,
+        session: state.session,
     }
 }
 

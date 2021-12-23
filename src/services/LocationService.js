@@ -1,4 +1,4 @@
-import ApiService from "./ApiService";
+import ApiService from "../api/ApiService";
 import LocationSerializer from '../Serializers/LocationSerializer';
 
 class LocationService extends ApiService {

@@ -11,7 +11,7 @@ import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 
 import { connect } from 'react-redux';
-import { login } from '../redux/userDuck';
+import { login } from '../redux/sessionDuck';
 import Spinner from '../components/Spinner';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -51,7 +51,6 @@ class LoginScreen extends React.Component {
 
         const { email, password } = this.state;
         login({ email: email, password: password })
-            .then(() => navigation.navigate('Dashboard'));
     }
 
     onEmailChange = (value) => {

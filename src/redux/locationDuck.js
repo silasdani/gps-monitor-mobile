@@ -1,4 +1,4 @@
-import LocationService from '../api/LocationService';
+import LocationService from '../services/LocationService'
 import LocationSerializer from '../Serializers/LocationSerializer';
 import LocationProvider from '../utils/LocationProvider';
 

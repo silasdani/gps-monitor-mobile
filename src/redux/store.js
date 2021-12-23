@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import user from './userDuck';
 import location from './locationDuck';
 import spinner from './spinnerDuck';
+import session from './sessionDuck';
 
 const rootReducer = combineReducers({
     user,
     location,
-    spinner
+    spinner,
+    session,
 });
 
 var Singleton = (function () {

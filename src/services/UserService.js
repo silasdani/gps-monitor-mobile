@@ -3,7 +3,7 @@ import ApiService from "../api/ApiService";
 class UserService extends ApiService {
     constructor() {
         super();
-        this.url = '/location';
+        this.url = '/user';
     }
 
     signup(user) {

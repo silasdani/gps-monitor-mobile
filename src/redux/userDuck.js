@@ -1,4 +1,6 @@
 import UserService from "../services/UserService";
+import { userLoggedIn } from '../redux/sessionDuck'
+import UserSerializer from "../Serializers/UserSerializer";
 
 export const USER_CREATED = "USER_CREATED";
 export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
@@ -33,7 +35,7 @@ export const signup = (data) => (dispatch) => {
     return new UserService().signup(data)
         .then((user) => {
             dispatch(userCreated());
-            dispatch(userLoggedIn(user));
+            dispatch(userLoggedIn(UserSerializer.deserialize(user)));
         })
         .catch(console.warn)
 }

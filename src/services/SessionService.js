@@ -1,4 +1,3 @@
-import setHeader from "../utils/setAuthorizationHeader";
 import ApiService from "../api/ApiService";
 
 class SessionService extends ApiService {
@@ -8,9 +7,8 @@ class SessionService extends ApiService {
     }
 
     login(credentials) {
-        return super.post("/login", credentials, ((res) => {
-            setHeader(res.data.data.attributes.remember_digest)
-            return res.data.data.attributes;
+        return super.post("/login", credentials, (answer => {
+            return answer
         }))
     }
 

@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-export default class erializer {
+export default class LocationSerializer {
     static serialize(coords) {
         const address = faker.address;
 
