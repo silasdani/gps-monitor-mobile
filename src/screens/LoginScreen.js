@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Modal } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Colors from '../utils/Colors';
-import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 
 import FormTextInput from '../components/FormTextInput';
@@ -143,8 +142,7 @@ export default connect(mapStateToProps, { login })(LoginScreen)
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        paddingLeft: Constants.sideMargin,
-        paddingRight: Constants.sideMargin,
+        paddingHorizontal: 15,
         backgroundColor: Colors.sceneBackgroundColor,
         height: '100%',
     },

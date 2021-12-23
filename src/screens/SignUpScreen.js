@@ -4,7 +4,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import checkPasswords from '../utils/CheckPasswordsService';
 import Colors from '../utils/Colors';
-import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 
 import FormTextInput from '../components/FormTextInput';
@@ -226,8 +225,7 @@ const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: Constants.sideMargin,
-        paddingRight: Constants.sideMargin,
+        paddingHorizontal: 15,
         backgroundColor: Colors.sceneBackgroundColor,
         height: height,
     },

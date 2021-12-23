@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Dimensions, View, Modal } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import CustomButton from '../components/CustomButton';
-import Constants from '../utils/Constants';
 import Colors from '../utils/Colors';
 import { sendCurrentLocation, fetchLocations } from '../redux/locationDuck'
 import { connect } from 'react-redux';
@@ -76,8 +75,7 @@ const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: Constants.sideMargin,
-        paddingRight: Constants.sideMargin,
+        paddingHorizontal: 15,
         backgroundColor: Colors.sceneBackgroundColor,
         height: height,
         flex: 1,

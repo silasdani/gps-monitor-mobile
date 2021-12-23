@@ -15,7 +15,7 @@ class FormTextInput extends React.Component {
         return (
             <View>
                 <Text style={styles.label} >
-                    {labelText}
+                    {labelText?.toUpperCase()}
                     {required && <Text style={styles.redText}>
                         &nbsp;*
                     </Text>}
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     label: {
         width: '100%',
         textAlign: 'left',
-        color: Colors.formTextInputLabelColor,
+        color: Colors.black,
         fontSize: 14,
-        fontWeight: 'bold',
+        fontWeight: '400',
         fontFamily: Fonts.bodyText,
         paddingBottom: 6,
     },

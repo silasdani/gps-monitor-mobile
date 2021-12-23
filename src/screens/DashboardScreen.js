@@ -3,7 +3,6 @@ import { Dimensions, Text, Modal, View, StyleSheet, Image, ActivityIndicator } f
 import CustomButton from '../components/CustomButton';
 import Spacer from '../components/Spacer';
 import Colors from '../utils/Colors';
-import Constants from '../utils/Constants';
 import Fonts from '../utils/Fonts';
 import { connect } from 'react-redux';
 import { getCurrentLocation, fetchLocations } from '../redux/locationDuck'
@@ -30,22 +29,20 @@ class DashboardScreen extends React.Component {
         const { locations } = this.props;
         return (
             <View style={styles.container}>
-                <View style={styles.bannerRow} >
-                    <Image source={require('../components/jog-icon.png')} style={styles.image} />
-                    <Image source={require('../components/sports-icon.png')} style={styles.image} />
-                    <Image source={require('../components/volleyball-icon.png')} style={styles.image} />
+                <View style={styles.group}>
+                    <View style={styles.bannerRow} >
+                        <Image source={require('../components/jog-icon.png')} style={styles.image} />
+                        <Image source={require('../components/sports-icon.png')} style={styles.image} />
+                        <Image source={require('../components/volleyball-icon.png')} style={styles.image} />
+                    </View>
+                    <Spacer height={10} />
+                    <CustomButton
+                        disabled={false}
+                        onPress={this.onPressMap}
+                    >
+                        TO THE MAP
+                    </CustomButton>
                 </View>
-
-                <Spacer height={18} />
-
-                <Spacer height={8} />
-
-                <CustomButton
-                    disabled={false}
-                    onPress={this.onPressMap}
-                >
-                    TO THE MAP
-                </CustomButton>
                 <Modal
                     visible={this.props.spinner}
                     transparent={true}
@@ -73,19 +70,22 @@ const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: Constants.sideMargin,
-        paddingRight: Constants.sideMargin,
+        paddingHorizontal: 15,
         backgroundColor: Colors.sceneBackgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: height,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        height: height - 100
     },
     bannerRow: {
-        top: 20,
         display: 'flex',
         flexDirection: 'row'
     },
+    group: {
+        height: 150,
+        bottom: 70
+    },
     image: {
+        tintColor: 'black',
         maxHeight: 120,
         maxWidth: 120,
     },

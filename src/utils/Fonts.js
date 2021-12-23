@@ -1,13 +1,13 @@
 const Fonts = {
-    bodyText: 'Georgia',
+    bodyText: 'Rockwell',
     sceneTitle: 'Arial',
-    tabLabel: 'Arial',
+    tabLabel: 'Rockwell',
     buttonText: 'Arial',
-    headingText: 'Georgia',
-    redBadge: 'Georgia',
+    headingText: 'Rockwell',
+    redBadge: 'Rockwell',
   
     // Animated form fields
-    textInput: 'Georgia',
+    textInput: 'Rockwell',
   
     // Kerning
     // not yet supported on Android

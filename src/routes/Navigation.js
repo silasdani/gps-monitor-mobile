@@ -4,11 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
 import { connect } from 'react-redux';
-import { Text, TouchableOpacity } from 'react-native';
-import { logout } from '../redux/sessionDuck';
+import OverflowMenu from '../components/OverflowMenu';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const HomeDrawer = createDrawerNavigator();
 
 const defaultOptions = {
     headerStyle: {
@@ -22,12 +22,26 @@ const defaultOptions = {
 
 export const Home = () => {
     return (
-        <Drawer.Navigator screenOptions={{
-            drawerStyle: {
-                backgroundColor: Colors.kindaGray
-            }
-        }
-        } >
+        <Drawer.Navigator
+            screenOptions={{
+                drawerStyle: {
+                    backgroundColor: Colors.green,
+                    opacity: 0.8,
+                },
+                drawerLabelStyle: {
+                    fontWeight: 'bold',
+                    color: 'white',
+                    fontSize: 20,
+                    alignSelf: 'flex-end'
+                },
+                drawerItemStyle: {
+                    borderBottomColor: 'white',
+                    borderBottomWidth: 1,
+                    marginTop: -3,
+                },
+                drawerActiveBackgroundColor: Colors.activeGreen,
+            }}
+        >
             <Drawer.Screen
                 name="Login"
                 component={LoginScreen}
@@ -51,45 +65,43 @@ export const Home = () => {
 const StackNavigation = (props) => {
     return props.session.signedIn ?
         (
-            <Stack.Navigator
-                initialRouteName='Dashboard'
-                screenOptions={({ route, navigation }) => ({
-                    headerRight: () => (
-                        <TouchableOpacity onPress={props.logout} >
-                            <Text style={{ color: 'white', fontWeight: 'bold' }} >LOGOUT</Text>
-                        </TouchableOpacity>
-                    ),
-                })}
+            <HomeDrawer.Navigator
+                drawerContent={(props) => <OverflowMenu {...props} />}
+                screenOptions={{
+                    drawerStyle: {
+                        backgroundColor: Colors.green,
+                        paddingHorizontal: 15,
+                        opacity: 0.8,
+                    }
+                }}
             >
-                <Stack.Screen
+                <HomeDrawer.Screen
                     name="Dashboard"
                     component={DashboardScreen}
                     options={{
                         title: props.session.user.name.toUpperCase(),
                         ...defaultOptions,
-                        headerBackButtonMenuEnabled: false,
-                        headerBackVisible: false
                     }}
                 />
-                <Stack.Screen
+                <HomeDrawer.Screen
                     name="Locations"
                     component={LocationsScreen}
                     options={{
                         title: 'MAP',
-                        ...defaultOptions
+                        ...defaultOptions,
                     }}
                 />
-            </Stack.Navigator>
+            </HomeDrawer.Navigator >
         ) : (
             <Stack.Navigator initialRouteName='Login'>
                 <Stack.Screen
-                    options={{
-                        headerShown: false,
-                    }}
-                    name="Login/SignUp"
+                    name='L/S'
                     component={Home}
+                    options={{
+                        headerShown: false
+                    }}
                 />
             </Stack.Navigator>);
 }
 
-export default connect((state) => ({ session: state.session }), { logout })(StackNavigation);
+export default connect((state) => ({ session: state.session }))(StackNavigation);

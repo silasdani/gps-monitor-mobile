@@ -14,6 +14,7 @@ const colors = {
     foggyDayGray: '#78868D',
     fancyGreen: '#49C2C6',
     green: 'green',
+    activeGreen: '#32CD32',
     kindaGray: '#e8e8f6'
   };
   
@@ -23,7 +24,7 @@ const colors = {
     // General
     primary: colors.teal,
     linkColor: '#00b3ef',
-    buttonColor: colors.red,
+    buttonColor: colors.green,
     disabledButtonColor: colors.lightGray,
     error: '#F74C45',
   
