@@ -24,7 +24,7 @@ const OverflowMenu = (props) => {
                         <Text style={styles.hashtag}>@{email?.split('@', 1)}</Text>
                     </View>
                 </View>
-                <Spacer height={28} />
+                <Spacer height={30} />
                 <View style={styles.delimiter} />
                 <DrawerItem
                     label={'DASHBOARD'}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "GPS Monitor",
+    "name": "Check In",
     "slug": "gps-monitor-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.silasdani.gps-monitor-mobile"
     },
     "android": {
       "adaptiveIcon": {
