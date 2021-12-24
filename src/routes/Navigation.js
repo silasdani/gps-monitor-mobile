@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Colors from '../utils/Colors';
 import { connect } from 'react-redux';
 import OverflowMenu from '../components/OverflowMenu';
+import CustomDrawerContent from '../components/CustomDrawerContent';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -20,27 +21,17 @@ const defaultOptions = {
     },
 }
 
-export const Home = () => {
+const Home = (props) => {
     return (
         <Drawer.Navigator
             screenOptions={{
                 drawerStyle: {
                     backgroundColor: Colors.green,
+                    paddingHorizontal: 15,
                     opacity: 0.8,
-                },
-                drawerLabelStyle: {
-                    fontWeight: 'bold',
-                    color: 'white',
-                    fontSize: 20,
-                    alignSelf: 'flex-end'
-                },
-                drawerItemStyle: {
-                    borderBottomColor: 'white',
-                    borderBottomWidth: 1,
-                    marginTop: -3,
-                },
-                drawerActiveBackgroundColor: Colors.activeGreen,
+                }
             }}
+            drawerContent={(props) => (<CustomDrawerContent {...props} />)}
         >
             <Drawer.Screen
                 name="Login"

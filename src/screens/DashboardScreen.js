@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { getCurrentLocation, fetchLocations } from '../redux/locationDuck'
 import Spinner from '../components/Spinner';
 import { showSpinner, hideSpinner } from '../redux/spinnerDuck'
-
+import Icon from 'react-native-vector-icons/Entypo';
 
 class DashboardScreen extends React.Component {
     constructor(props) {
@@ -29,6 +29,13 @@ class DashboardScreen extends React.Component {
         const { locations } = this.props;
         return (
             <View style={styles.container}>
+                <View style={styles.info}>
+                    <Text style={styles.text}>You got</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.text}>{locations?.length}  </Text>
+                        <Icon name="location" size={25} color={Colors.red} />
+                    </View>
+                </View>
                 <View style={styles.group}>
                     <View style={styles.bannerRow} >
                         <Image source={require('../components/jog-icon.png')} style={styles.image} />
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: Colors.sceneBackgroundColor,
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         height: height - 100
     },
     bannerRow: {
@@ -108,14 +115,18 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bodyText,
     },
     text: {
-        width: '100%',
         height: 40,
         color: Colors.formTextInputColor,
-        fontSize: 20,
-        paddingLeft: 14,
-        fontFamily: Fonts.bodyText,
+        fontSize: 25,
+        fontFamily: Fonts.buttonText,
     },
-    earth: {
-        top: 10,
+    info: {
+        alignItems: 'center',
+        top: 30,
+    },
+    row: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center'
     }
 });

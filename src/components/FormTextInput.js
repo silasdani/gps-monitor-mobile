@@ -59,11 +59,12 @@ const styles = StyleSheet.create({
     label: {
         width: '100%',
         textAlign: 'left',
-        color: Colors.black,
+        color: Colors.formTextInputLabelColor,
         fontSize: 14,
         fontWeight: '400',
         fontFamily: Fonts.bodyText,
-        paddingBottom: 6,
+        paddingBottom: 2,
+        paddingTop: 10,
     },
     textInput: {
         width: '100%',

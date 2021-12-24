@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     session,
 });
 
-var Singleton = (function () {
+var Singleton = (() => {
     var instance;
 
     function createInstance() {

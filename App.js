@@ -6,7 +6,7 @@ import StackNavigation from './src/routes/Navigation';
 import { getCurrentLocation } from './src/redux/locationDuck'
 
 const requestLocation = () => {
-  store.dispatch(getCurrentLocation())
+  if (store.getState().session.signedIn) store.dispatch(getCurrentLocation())
   setTimeout(requestLocation, 30000)
 }
 

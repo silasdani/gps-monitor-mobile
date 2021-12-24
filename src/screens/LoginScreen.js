@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Modal } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity } from 'react-native';
 
 import Colors from '../utils/Colors';
 import Fonts from '../utils/Fonts';
@@ -12,7 +11,6 @@ import Spacer from '../components/Spacer';
 import { connect } from 'react-redux';
 import { login } from '../redux/sessionDuck';
 import Spinner from '../components/Spinner';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -71,13 +69,8 @@ class LoginScreen extends React.Component {
 
         return (
             <>
-                <KeyboardAwareScrollView
-                    extraHeight={120}
-                    enableOnAndroid
+                <ScrollView
                     style={styles.container}
-                    bounces={false}
-                    enableResetScrollToCoords={false}
-                    keyboardOpeningTime={1}
                 >
                     <Spacer height={26} />
                     <FormTextInput
@@ -118,7 +111,7 @@ class LoginScreen extends React.Component {
                     >
                         <Text style={styles.accountText}>Don't have an account?</Text>
                     </TouchableOpacity>
-                </KeyboardAwareScrollView>
+                </ScrollView>
                 <Modal
                     visible={this.props.spinner}
                     transparent={true}

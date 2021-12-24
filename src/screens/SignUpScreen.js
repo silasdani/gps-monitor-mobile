@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, Modal } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, Text, Dimensions, StyleSheet, Modal, ScrollView } from 'react-native';
 
 import checkPasswords from '../utils/CheckPasswordsService';
 import Colors from '../utils/Colors';
@@ -129,7 +128,7 @@ class SignUpScreen extends React.Component {
         const { errors } = this.state;
 
         return (
-            <KeyboardAwareScrollView
+            <ScrollView
                 extraHeight={120}
                 enableOnAndroid
                 style={styles.container}
@@ -206,7 +205,7 @@ class SignUpScreen extends React.Component {
                 >
                     <Spinner />
                 </Modal>
-            </KeyboardAwareScrollView>
+            </ScrollView>
         );
     }
 }

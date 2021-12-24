@@ -61,12 +61,12 @@ const DEFAULT_STATE = {
     locations: []
 }
 
-const location = (state = DEFAULT_STATE, action = {}) => {
+const location = (state = {}, action = {}) => {
     switch (action.type) {
         case CURRENT_LOCATION:
             return {
                 ...state,
-                currentLocation: { ...action.data },
+                currentLocation: action.data,
             }
         case LOCATIONS_FETCHED:
             return {
